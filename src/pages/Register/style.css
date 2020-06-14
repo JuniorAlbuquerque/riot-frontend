@@ -1,0 +1,45 @@
+.bg {
+  background: url(../../assets/bg-register.svg) no-repeat;
+  background-position: right;
+  background-size: contain;
+}
+
+.register-container {
+  width: 100%;
+  max-width: 1120px;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  position: relative;
+}
+
+.register-container section.form {
+  width: 95%;
+  max-width: 500px;
+  margin-right: 10px;
+  text-align: center;
+  margin-bottom: 50px;
+  float: left;
+}
+
+.register-container section.form img {
+  margin-bottom: 70px;
+  width: 240px;
+}
+
+.register-container section.form form a {
+  margin-top: 30px;
+  color: var(--primaryColor);
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.register-container .team-img {
+  width: 500px;
+  position: absolute;
+  right: -60px;
+}

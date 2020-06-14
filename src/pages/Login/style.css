@@ -1,0 +1,93 @@
+body {
+  /* background: url(../../assets/bgColor.svg) no-repeat; */
+  background-position: center;
+  background-size: cover;
+}
+
+.login-container {
+  width: 100%;
+  /* max-width: 1120px; */
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container section.form {
+  width: 95%;
+  height: 100vh;
+  padding: 60px;
+  margin-right: 160px;
+  text-align: center;
+  background: #00002e;
+  display: flex;
+  align-items: center;
+}
+
+.login-container section.form .logo-img {
+  width: 250px;
+}
+
+.login-container section.form form {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.login-container section.form form h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  text-align: justify;
+  color: white;
+}
+
+.login-container section.form form a {
+  margin-top: 30px;
+  color: var(--primaryColor);
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.login-container section.form form a:hover {
+  opacity: 0.8;
+}
+
+.login-container section.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 100px;
+}
+
+.login-container section.info .colab-img {
+  width: 460px;
+}
+
+.login-container section.info p {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+@media (max-width: 758px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-container section.form {
+    margin-bottom: 0px;
+    margin-right: 0px;
+  }
+
+  .login-container .colab-img {
+    display: none;
+  }
+}

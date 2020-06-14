@@ -1,0 +1,109 @@
+.dashboard-container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 'header header' 'aside main';
+}
+
+a {
+  text-decoration: none;
+}
+
+/*======== HEADER ========*/
+.dashboard-container .header {
+  width: 100%;
+  grid-area: header;
+  padding: 14px 80px;
+  border-bottom: 1px solid #d5d6dc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-container .header img {
+  width: 90px;
+}
+
+/*======== ASIDE ========*/
+.dashboard-container .aside {
+  grid-area: aside;
+  width: 60px;
+  border-right: 1px solid #d5d6dc;
+  transition-duration: 0.4s;
+}
+
+.dashboard-container .aside.active {
+  margin-left: -60px;
+  transition: 0.4s;
+}
+
+.dashboard-container .aside nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  margin-top: 10px;
+}
+
+.dashboard-container .aside nav ul li {
+  margin-top: 20px;
+}
+
+.dashboard-container .aside nav ul li a svg:hover path {
+  stroke: #5ae1e0;
+  transition: 0.2s;
+}
+
+.dashboard-container .aside nav ul li a svg.project:hover path {
+  fill: #5ae1e0;
+  stroke: none;
+  transition: 0.2s;
+}
+
+.dashboard-container .main {
+  background: #f4f6ff;
+}
+
+.cards {
+  display: grid;
+  margin: 20px auto;
+  grid-gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  justify-items: center;
+  justify-content: center;
+  transition: 0.5s ease;
+}
+
+.card-project {
+  background: #c7c7c7;
+  width: 240px;
+  height: 240px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 2px 5px 20px rgba(143, 143, 143, 0.231);
+}
+
+.card-project span {
+  font-weight: 700;
+  font-size: 56px;
+}
+
+.card-project.card1 {
+  background: white;
+  color: var(--primaryColor);
+}
+
+.card-project.card1 p {
+  font-size: 16px;
+}
+
+.card-project.card2 {
+  background: #55417c;
+  color: white;
+  font-size: 24px;
+}

@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Muli:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primaryColor: #000051;
+}
+
+body {
+  font: 400 14px Muli, sans-serif;
+  background: #fbfbfb;
+  -webkit-font-smoothing: antialiased;
+}
+
+input,
+button {
+  font: 400 18px Muli, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+form input {
+  width: 100%;
+  height: 55px;
+  background: none;
+  color: white;
+  /* border: 1px solid #dcdce6; */
+  border: 1px solid #27f8d9;
+  border-radius: 8px;
+  padding: 0 24px;
+  margin-bottom: 20px;
+}
+
+form input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #27f8d98b;
+  opacity: 1; /* Firefox */
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-animation: autofill 0s forwards;
+  animation: autofill 0s forwards;
+}
+
+@keyframes autofill {
+  100% {
+    background: transparent;
+    color: white;
+  }
+}
+
+@-webkit-keyframes autofill {
+  100% {
+    background: transparent;
+    color: white;
+  }
+}
+
+.button {
+  width: 100%;
+  height: 55px;
+  background: #27f8d9;
+  border: 0;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  color: #0e0e0e;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 55px;
+  transition: filter 0.2s;
+}
+
+.button:hover {
+  filter: brightness(80%);
+}

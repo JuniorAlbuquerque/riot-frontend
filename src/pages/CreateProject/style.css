@@ -1,0 +1,155 @@
+body {
+  background: #efefef !important;
+}
+
+.header {
+  background: white;
+}
+
+.aside {
+  background: white;
+}
+
+.dashboard-container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 'header header' 'aside main';
+}
+
+/*======== HEADER ========*/
+.dashboard-container .header {
+  width: 100%;
+  grid-area: header;
+  padding: 14px 80px;
+  border-bottom: 1px solid #d5d6dc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-container .header img {
+  width: 90px;
+}
+
+/*======== ASIDE ========*/
+.dashboard-container .aside {
+  grid-area: aside;
+  width: 60px;
+  border-right: 1px solid #d5d6dc;
+  transition-duration: 0.4s;
+}
+
+.dashboard-container .aside.active {
+  margin-left: -60px;
+  transition: 0.4s;
+}
+
+.dashboard-container .aside nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  margin-top: 10px;
+}
+
+.dashboard-container .aside nav ul li {
+  margin-top: 20px;
+}
+
+.dashboard-container .aside nav ul li a svg:hover path {
+  stroke: #5ae1e0;
+  transition: 0.2s;
+}
+
+.dashboard-container .aside nav ul li a svg.project:hover path {
+  fill: #5ae1e0;
+  stroke: none;
+  transition: 0.2s;
+}
+
+.dashboard-container .main {
+  background: #efefef !important;
+  padding: 20px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.dashboard-container .main h3 {
+  margin: 10px;
+}
+
+.dashboard-container .main .card-create {
+  background: white;
+  width: 98%;
+  max-width: 1240px;
+  height: auto;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.dashboard-container .main .card-create .form-create {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-container .main .card-create .form-create .form-row {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  max-width: 1120px;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.dashboard-container .main .card-create .form-create label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.dashboard-container .main .card-create .form-create input {
+  background: rgba(196, 196, 196, 0.5);
+  border-radius: 8px;
+  border: none;
+  color: black;
+}
+
+.dashboard-container .main .card-create .form-create input.h1 {
+  width: 200px;
+}
+
+.dashboard-container .main .card-create .form-create input.h3 {
+  width: 500px;
+}
+
+.dashboard-container .main .card-create .form-create textarea {
+  width: 1114px;
+  height: 200px;
+  background: rgba(196, 196, 196, 0.5);
+  border-radius: 8px;
+  border: none;
+  color: black;
+  font: 400 18px Muli, sans-serif;
+  padding: 14px 24px;
+  text-align: justify;
+  resize: none;
+}
+
+.dashboard-container .main .card-create .form-create .btn-submit {
+  width: 289px;
+  height: 50px;
+  background: #8de078;
+  margin: 30px auto;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+.dashboard-container .main .card-create .form-create .btn-submit:hover {
+  filter: brightness(90%);
+  transition: 0.4s ease-out;
+}

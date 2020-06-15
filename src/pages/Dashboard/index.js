@@ -25,7 +25,7 @@ export default function Dashboard() {
       .then((response) => {
         setProjects(response.data)
       })
-  }, [userId])
+  }, [userId, userToken])
 
   return (
     <div className="dashboard-container">
@@ -33,8 +33,10 @@ export default function Dashboard() {
         <img onClick={handleToggle} src={LogoImg} alt="" />
 
         <div className="info">
-          <span style={{ marginRight: '20px' }}>Bem Vindo, {userName}</span>
-          <Link to="/">Sair</Link>
+          <span>Bem Vindo, {userName}</span>
+          <Link className="logout" to="/">
+            Sair
+          </Link>
         </div>
       </header>
       <aside className={`aside ${toggleSate}`}>
@@ -182,7 +184,7 @@ export default function Dashboard() {
               className="project-link"
               key={project.id_project}
               to={{
-                pathname: '/create-project',
+                pathname: '/project',
                 state: { id: project.id_project },
               }}
             >

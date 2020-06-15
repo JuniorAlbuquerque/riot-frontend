@@ -26,6 +26,15 @@ a {
   width: 90px;
 }
 
+.dashboard-container .header .info {
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard-container .header .info .logout {
+  margin-left: 20px;
+}
+
 /*======== ASIDE ========*/
 .dashboard-container .aside {
   grid-area: aside;

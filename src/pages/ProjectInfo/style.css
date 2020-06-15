@@ -1,0 +1,328 @@
+body {
+  background: #efefef !important;
+}
+
+.header {
+  background: white;
+}
+
+.aside {
+  background: white;
+}
+
+.dashboard-container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 'header header' 'aside main';
+}
+
+/*======== HEADER ========*/
+.dashboard-container .header {
+  width: 100%;
+  grid-area: header;
+  padding: 14px 80px;
+  border-bottom: 1px solid #d5d6dc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-container .header img {
+  width: 90px;
+}
+
+/*======== ASIDE ========*/
+.dashboard-container .aside {
+  grid-area: aside;
+  width: 60px;
+  border-right: 1px solid #d5d6dc;
+  transition-duration: 0.4s;
+}
+
+.dashboard-container .aside.active {
+  margin-left: -60px;
+  transition: 0.4s;
+}
+
+.dashboard-container .aside nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  margin-top: 10px;
+}
+
+.dashboard-container .aside nav ul li {
+  margin-top: 20px;
+}
+
+.dashboard-container .aside nav ul li a svg:hover path {
+  stroke: #5ae1e0;
+  transition: 0.2s;
+}
+
+.dashboard-container .aside nav ul li a svg.project:hover path {
+  fill: #5ae1e0;
+  stroke: none;
+  transition: 0.2s;
+}
+
+.dashboard-container .main {
+  background: #efefef !important;
+  padding: 20px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.dashboard-container .main h3 {
+  margin: 10px;
+}
+
+.project-container {
+  width: 97%;
+  max-width: 1210px;
+  margin: 25px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-container .subs {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-container .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-container .card-header .add {
+  background: gray;
+  padding: 7px 14px;
+  margin-left: 20px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.project-container .subs .sub-card {
+  width: 150px;
+  min-height: 40px;
+  display: flex;
+  text-align: center;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  box-shadow: 5px 7px 4px rgba(204, 204, 204, 0.23);
+  border-radius: 7px;
+  margin-top: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.9em;
+  width: 100%;
+  min-width: 400px;
+  text-align: center;
+  font: Muli;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: white;
+}
+
+thead tr {
+  text-align: center;
+  font-weight: bold;
+  background: #000051;
+  color: white;
+}
+
+/* top-left border-radius */
+table tr:first-child,
+th:first-child {
+  border-top-left-radius: 7px;
+}
+
+table tr:first-child,
+th:last-child {
+  border-top-right-radius: 7px;
+}
+
+table th,
+table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #c5c5c5;
+}
+
+table tbody tr:last-of-type {
+  border-bottom: 2px solid #06234e;
+}
+
+/* INFORMARTION */
+.info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.info input {
+  background: white;
+  border: none;
+  width: 370px;
+  padding: 10px;
+  margin-top: 24px;
+  box-shadow: 3px 5px 2px rgba(204, 204, 204, 0.23);
+  font: 400 16px Muli, sans-serif;
+  border-radius: 7px;
+}
+
+.info .dominio {
+  display: flex;
+  flex-direction: column;
+}
+
+.info .tipo {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.info .descricao {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.info .descricao .desc-info {
+  border: none;
+  background: white;
+  border-radius: 7px;
+  padding: 14px;
+  text-align: justify;
+  font: 400 16px Muli, sans-serif;
+  margin-top: 20px;
+  box-shadow: 3px 5px 2px rgba(204, 204, 204, 0.23);
+  resize: none;
+  height: auto;
+  width: 370px;
+}
+
+/* MODAL */
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.349);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  align-items: center;
+  justify-content: center;
+  transition: visibility 0s, opacity 0.2s linear;
+  z-index: 999;
+}
+
+.modal-sub.active {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-member.active {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal .card-modal-sub {
+  width: 470px;
+  height: auto;
+  background: white;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal .card-modal-sub .card-header {
+  background: #000051;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  padding: 10px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal .card-modal-sub .card-header .close {
+  background: #ffffff;
+  color: #f00;
+  width: 55px;
+  height: 25px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+}
+
+.modal .card-modal-sub .card-header .close:hover {
+  transition: 0.2s ease-out;
+  background: #ec3737;
+  color: white;
+}
+
+.modal .card-modal-sub .card-body form {
+  display: flex;
+  flex-direction: column;
+  margin: 17px 40px;
+  color: black;
+}
+
+.modal .card-modal-sub .card-body form input {
+  border: 1px solid #aaaaaa;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding: 10px;
+  height: 40px;
+  color: black;
+  margin-bottom: 20px;
+  font: 400 14px Muli, sans-serif;
+}
+
+.modal .card-modal-sub .card-body form textarea {
+  resize: none;
+  border: 1px solid #aaaaaa;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding: 10px;
+  color: black;
+  font: 400 14px Muli, sans-serif;
+}
+
+.modal .card-modal-sub .card-body form button {
+  background: rgb(38, 224, 109);
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font: 400 16px Muli, sans-serif;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.modal .card-modal-sub .card-body button:hover {
+  background: rgb(26, 182, 86);
+  transition: 0.5s;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 import './style.css'
@@ -12,7 +12,6 @@ import CheckImg from '../../assets/check-bg.png'
 export default function Login() {
   const [email, setEmail] = useState('')
   const [senha, setPassword] = useState('')
-  let message = ''
 
   const history = useHistory()
 

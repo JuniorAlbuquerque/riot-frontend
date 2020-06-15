@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import CreateProject from './pages/CreateProject'
 import Dashboard from './pages/Dashboard'
+import Project from './pages/ProjectInfo'
 
 export default function Routes() {
   return (
@@ -14,6 +15,7 @@ export default function Routes() {
         <Route path="/register" component={Register} />
         <Route path="/home" component={Dashboard} />
         <Route path="/create-project" component={CreateProject} />
+        <Route path="/project" component={Project} />
       </Switch>
     </BrowserRouter>
   )

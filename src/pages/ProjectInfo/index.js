@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 import './style.css'
 
@@ -9,19 +10,125 @@ import api from '../../services/api'
 
 export default function Dashboard() {
   const [toggleSate, setToggleSate] = useState('')
+  const [modalSub, setModalSub] = useState('')
+  const [modalMember, setModalMember] = useState('')
   const [projectName, setProject] = useState('')
+  const [projectDomain, setDomain] = useState('')
+  const [projectType, setType] = useState('')
+  const [projectDescription, setDescription] = useState('')
+  const [subs, setSubs] = useState([])
+  const [members, setMembers] = useState([])
+
+  const [subName, setSubName] = useState('')
+  const [subDescription, setSubDescription] = useState('')
+
+  const [memberName, setMemberName] = useState('')
+  const [memberEmail, setMemberEmail] = useState('')
+  const [memberPassword, setMemberPassword] = useState('')
+  const userToken = localStorage.getItem('token')
+
   let data = useLocation()
 
   function handleToggle() {
     setToggleSate(toggleSate === '' ? 'active' : '')
   }
 
-  useEffect(() => {
-    api.get(`/project/info/${data.state.id}`).then((response) => {
+  function handleModalSubAdd() {
+    setModalSub(modalSub === '' ? 'active' : '')
+  }
+
+  function handleModalMemberAdd() {
+    setModalMember(modalMember === '' ? 'active' : '')
+  }
+
+  async function handleCreateSub(e) {
+    e.preventDefault()
+    const dataSub = {
+      nome: subName,
+      descricao: subDescription,
+      id_project: data.state.id,
+    }
+
+    try {
+      await api.post('/sub/create', dataSub).then((response) => {
+        Swal.fire({
+          title: 'Successo!',
+          text: response.data.message,
+          icon: 'success',
+          confirmButtonText: 'Ok',
+        }).then((result) => {
+          if (result.value) {
+            setModalSub('')
+          }
+        })
+      })
+
+      setSubName('')
+      setSubDescription('')
+      handleGetInfoProject()
+    } catch (error) {
+      alert('erro')
+    }
+  }
+
+  async function handleCreateMember(e) {
+    e.preventDefault()
+    const dataMember = {
+      email: memberEmail,
+      nome: memberName,
+      senha: memberPassword,
+      id_project: data.state.id,
+    }
+
+    try {
+      await api
+        .post('/member/create', dataMember, {
+          headers: { Authorization: userToken },
+        })
+        .then((response) => {
+          if (response.data.erro) {
+            Swal.fire({
+              title: 'Erro!',
+              text: response.data.erro,
+              icon: 'error',
+              confirmButtonText: 'Ok',
+            })
+          } else {
+            Swal.fire({
+              title: 'Successo!',
+              text: response.data.message,
+              icon: 'success',
+              confirmButtonText: 'Ok',
+            }).then((result) => {
+              if (result.value) {
+                setModalMember('')
+                setMemberName('')
+                setMemberEmail('')
+                setMemberPassword('')
+              }
+            })
+          }
+        })
+
+      handleGetInfoProject()
+    } catch (error) {
+      alert('erro')
+    }
+  }
+
+  const handleGetInfoProject = async () => {
+    await api.get(`/project/info/${data.state.id}`).then((response) => {
       setProject(response.data.project[0].nome)
-      // const projeto = response.data
-      // console.log(projeto.project[0])
+      setDomain(response.data.project[0].dominio)
+      setType(response.data.project[0].tipo)
+      setDescription(response.data.project[0].descricao)
+      setSubs(response.data.sub)
+      setMembers(response.data.members)
     })
+  }
+
+  useEffect(() => {
+    handleGetInfoProject()
   }, [data.state.id])
 
   return (
@@ -34,7 +141,7 @@ export default function Dashboard() {
         <nav>
           <ul>
             <li>
-              <a href="/home">
+              <Link to="/home">
                 <svg
                   width="40"
                   height="40"
@@ -57,7 +164,7 @@ export default function Dashboard() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
+              </Link>
             </li>
             <li>
               <a href="/">
@@ -163,37 +270,137 @@ export default function Dashboard() {
         </nav>
       </aside>
       <main className="main">
-        <h3>Criar Projeto</h3>
-        <div className="card-create">
-          <form action="" className="form-create">
-            <div className="form-row">
-              <div className="row">
+        <h3>{projectName}</h3>
+        <div className="project-container">
+          <div className="subs">
+            <div className="card-header">
+              Subsistemas
+              <div className="add" onClick={handleModalSubAdd}>
+                +
+              </div>
+            </div>
+            {subs.map((sub) => (
+              <Link key={sub.id_sub} className="sub-card" to="/home">
+                {sub.nome}
+              </Link>
+            ))}
+          </div>
+
+          <div className="members">
+            <div className="card-header">
+              Membros
+              <div className="add" onClick={handleModalMemberAdd}>
+                +
+              </div>
+            </div>
+            <table className="content-table" id="table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {members.map((member) => (
+                  <tr key={member.id_member}>
+                    <td>{member.nome}</td>
+                    <td>{member.email}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="info">
+            <div className="dominio">
+              <span>Domínio</span>
+              <input type="text" defaultValue={projectDomain} disabled />
+            </div>
+
+            <div className="tipo">
+              <span>Tipo</span>
+              <input type="text" defaultValue={projectType} disabled />
+            </div>
+
+            <div className="descricao">
+              <span>Descrição</span>
+              <div className="desc-info">{projectDescription}</div>
+            </div>
+          </div>
+        </div>
+
+        <div className={`modal modal-sub ${modalSub}`}>
+          <div className="card-modal-sub">
+            <div className="card-header">
+              Cadastrar Subsistema
+              <div className="close" onClick={handleModalSubAdd}>
+                x
+              </div>
+            </div>
+
+            <div className="card-body">
+              <form onSubmit={handleCreateSub}>
                 <label htmlFor="">Nome</label>
-                <input className="h3" type="text" defaultValue={projectName} />
-              </div>
-
-              <div className="row">
-                <label htmlFor="">Tipo do sistema</label>
-                <input type="text" />
-              </div>
-
-              <div className="row">
-                <label htmlFor="">Domínio do Sistema</label>
-                <input type="text" />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="row">
+                <input
+                  type="text"
+                  value={subName}
+                  required
+                  onChange={(e) => setSubName(e.target.value)}
+                />
                 <label htmlFor="">Descrição</label>
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <textarea
+                  cols="30"
+                  rows="4"
+                  value={subDescription}
+                  required
+                  onChange={(e) => setSubDescription(e.target.value)}
+                />
+                <button type="submit">Cadastrar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div className={`modal modal-member ${modalMember}`}>
+          <div className="card-modal-sub">
+            <div className="card-header">
+              Cadastrar Membro
+              <div className="close" onClick={handleModalMemberAdd}>
+                x
               </div>
             </div>
 
-            <button type="submit" className="btn-submit">
-              Cadastrar Projeto
-            </button>
-          </form>
+            <div className="card-body">
+              <form onSubmit={handleCreateMember}>
+                <label htmlFor="">Nome</label>
+                <input
+                  type="text"
+                  value={memberName}
+                  required
+                  onChange={(e) => setMemberName(e.target.value)}
+                />
+
+                <label htmlFor="">Email</label>
+                <input
+                  type="email"
+                  value={memberEmail}
+                  required
+                  onChange={(e) => setMemberEmail(e.target.value)}
+                />
+
+                <label htmlFor="">Senha</label>
+                <input
+                  type="password"
+                  value={memberPassword}
+                  required
+                  onChange={(e) => setMemberPassword(e.target.value)}
+                />
+
+                <button type="submit">Cadastrar</button>
+              </form>
+            </div>
+          </div>
         </div>
       </main>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import $ from 'jquery'
 
 import './style.css'
 
@@ -9,23 +10,22 @@ import LogoImg from '../../assets/logo-riot.svg'
 import api from '../../services/api'
 
 export default function Dashboard() {
+  const userToken = localStorage.getItem('token')
   const [toggleSate, setToggleSate] = useState('')
-  const [modalSub, setModalSub] = useState('')
-  const [modalMember, setModalMember] = useState('')
   const [projectName, setProject] = useState('')
-  const [projectDomain, setDomain] = useState('')
-  const [projectType, setType] = useState('')
-  const [projectDescription, setDescription] = useState('')
-  const [subs, setSubs] = useState([])
-  const [members, setMembers] = useState([])
-
   const [subName, setSubName] = useState('')
   const [subDescription, setSubDescription] = useState('')
+  const [reqFunc, setReqFunc] = useState([])
+  const [reqNonFunc, setReqNonFunc] = useState([])
 
-  const [memberName, setMemberName] = useState('')
-  const [memberEmail, setMemberEmail] = useState('')
-  const [memberPassword, setMemberPassword] = useState('')
-  const userToken = localStorage.getItem('token')
+  const [modalReqFunc, setModalReqFunc] = useState('')
+  const [reqFuncID, setReqFuncID] = useState('')
+  const [reqFuncDesc, setReqFuncDesc] = useState('')
+
+  const [modalReqNonFunc, setModalReqNonFunc] = useState('')
+  const [reqNonFuncId, setReqNonFuncID] = useState('')
+  const [reqNonFuncTipo, setReqNonFuncTipo] = useState('')
+  const [reqNonFuncDesc, setReqNonFuncDesc] = useState('')
 
   let data = useLocation()
 
@@ -33,103 +33,113 @@ export default function Dashboard() {
     setToggleSate(toggleSate === '' ? 'active' : '')
   }
 
-  function handleModalSubAdd() {
-    setModalSub(modalSub === '' ? 'active' : '')
+  function handleModalReqFunc() {
+    setModalReqFunc(modalReqFunc === '' ? 'active' : '')
   }
 
-  function handleModalMemberAdd() {
-    setModalMember(modalMember === '' ? 'active' : '')
+  function handleModalReqNonFunc() {
+    setModalReqNonFunc(modalReqNonFunc === '' ? 'active' : '')
   }
 
-  async function handleCreateSub(e) {
+  async function handleCreateReqFunc(e) {
     e.preventDefault()
-    const dataSub = {
-      nome: subName,
-      descricao: subDescription,
-      id_project: data.state.id,
+    const dataReqFunc = {
+      indicador: reqFuncID,
+      descricao: reqFuncDesc,
+      id_sub: data.state.id,
     }
-
     try {
-      await api.post('/sub/create', dataSub).then((response) => {
-        Swal.fire({
-          title: 'Successo!',
-          text: response.data.message,
-          icon: 'success',
-          confirmButtonText: 'Ok',
-        }).then((result) => {
-          if (result.value) {
-            setModalSub('')
-          }
+      await api
+        .post('/requirement/create', dataReqFunc, {
+          headers: { Authorization: userToken },
         })
-      })
+        .then((response) => {
+          Swal.fire({
+            title: 'Successo!',
+            text: response.data.message,
+            icon: 'success',
+            confirmButtonText: 'Ok',
+          }).then((result) => {
+            if (result.value) {
+              setModalReqFunc('')
+            }
+          })
+        })
 
-      setSubName('')
-      setSubDescription('')
-      handleGetInfoProject()
+      setReqFuncID('')
+      setReqFuncDesc('')
+      getSubInfo()
     } catch (error) {
       alert('erro')
     }
   }
 
-  async function handleCreateMember(e) {
+  async function handleCreateReqNonFunc(e) {
     e.preventDefault()
-    const dataMember = {
-      email: memberEmail,
-      nome: memberName,
-      senha: memberPassword,
-      id_project: data.state.id,
+
+    const dataReqNonFunc = {
+      indicador: reqNonFuncId,
+      tipo: reqNonFuncTipo,
+      descricao: reqNonFuncDesc,
+      id_sub: data.state.id,
     }
 
     try {
       await api
-        .post('/member/create', dataMember, {
+        .post('/requirement/create', dataReqNonFunc, {
           headers: { Authorization: userToken },
         })
         .then((response) => {
-          if (response.data.erro) {
-            Swal.fire({
-              title: 'Erro!',
-              text: response.data.erro,
-              icon: 'error',
-              confirmButtonText: 'Ok',
-            })
-          } else {
-            Swal.fire({
-              title: 'Successo!',
-              text: response.data.message,
-              icon: 'success',
-              confirmButtonText: 'Ok',
-            }).then((result) => {
-              if (result.value) {
-                setModalMember('')
-                setMemberName('')
-                setMemberEmail('')
-                setMemberPassword('')
-              }
-            })
-          }
+          Swal.fire({
+            title: 'Successo!',
+            text: response.data.message,
+            icon: 'success',
+            confirmButtonText: 'Ok',
+          }).then((result) => {
+            if (result.value) {
+              setModalReqNonFunc('')
+            }
+          })
         })
 
-      handleGetInfoProject()
+      setReqNonFuncID('')
+      setReqNonFuncTipo('')
+      setReqNonFuncDesc('')
+      getSubInfo()
     } catch (error) {
       alert('erro')
     }
   }
 
-  const handleGetInfoProject = async () => {
-    await api.get(`/project/info/${data.state.id}`).then((response) => {
-      setProject(response.data.project[0].nome)
-      setDomain(response.data.project[0].dominio)
-      setType(response.data.project[0].tipo)
-      setDescription(response.data.project[0].descricao)
-      setSubs(response.data.sub)
-      setMembers(response.data.members)
+  async function getSubInfo() {
+    await api.get(`/sub/${data.state.id}`).then((response) => {
+      setSubName(response.data.sub[0].nome)
+      setSubDescription(response.data.sub[0].descricao)
+      setReqFunc(response.data.reqFunc)
+      setReqNonFunc(response.data.reqNonFunc)
     })
   }
 
+  $('#inputSearch').on('keyup', function () {
+    var value = $(this).val().toLowerCase()
+    $('#table tbody tr').filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      return true
+    })
+  })
+
+  $('#inputSearch2').on('keyup', function () {
+    var value = $(this).val().toLowerCase()
+    $('#table2 tbody tr').filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      return true
+    })
+  })
+
   useEffect(() => {
-    handleGetInfoProject()
-  }, [data.state.id])
+    setProject(data.state.projectName)
+    getSubInfo()
+  }, [])
 
   return (
     <div className="dashboard-container">
@@ -270,102 +280,127 @@ export default function Dashboard() {
         </nav>
       </aside>
       <main className="main">
-        <h3>{projectName}</h3>
-        <div className="project-container">
-          <div className="subs">
-            <div className="card-header">
-              Subsistemas
-              <div className="add" onClick={handleModalSubAdd}>
-                +
-              </div>
+        <h3>
+          <Link
+            to={{
+              pathname: '/project',
+              state: { id: data.state.projectId },
+            }}
+          >
+            {projectName}
+          </Link>{' '}
+          / {subName}
+        </h3>
+        <div className="sub-container">
+          <div className="sub-info">
+            <div className="sub-name">
+              <span>Nome</span>
+              <input type="text" defaultValue={subName} disabled />
             </div>
-            {subs.map((sub) => (
-              <Link
-                key={sub.id_sub}
-                className="sub-card"
-                to={{
-                  pathname: '/subsystem',
-                  state: {
-                    id: sub.id_sub,
-                    projectName,
-                    projectId: data.state.id,
-                  },
-                }}
-              >
-                {sub.nome}
-              </Link>
-            ))}
-          </div>
-
-          <div className="members">
-            <div className="card-header">
-              Membros
-              <div className="add" onClick={handleModalMemberAdd}>
-                +
-              </div>
-            </div>
-            <table className="content-table" id="table">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Email</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {members.map((member) => (
-                  <tr key={member.id_member}>
-                    <td>{member.nome}</td>
-                    <td>{member.email}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="info">
-            <div className="dominio">
-              <span>Domínio</span>
-              <input type="text" defaultValue={projectDomain} disabled />
-            </div>
-
-            <div className="tipo">
-              <span>Tipo</span>
-              <input type="text" defaultValue={projectType} disabled />
-            </div>
-
-            <div className="descricao">
+            <div className="sub-desc">
               <span>Descrição</span>
-              <div className="desc-info">{projectDescription}</div>
+              <div className="desc">{subDescription}</div>
+            </div>
+          </div>
+
+          <div className="sub-reqs">
+            <div className="req">
+              <div className="req-header">
+                <span>Requisitos Funcionais</span>
+                <input
+                  type="search"
+                  id="inputSearch"
+                  className="search"
+                  placeholder="Pesquisar por ID ou descrição"
+                />
+                <div className="add" onClick={handleModalReqFunc}>
+                  +
+                </div>
+              </div>
+
+              <table className="content-table" id="table">
+                <thead>
+                  <tr>
+                    <th className="id-table">ID</th>
+                    <th className="desc-table">Descrição</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {reqFunc.map((req) => (
+                    <tr key={req.id_reqfunctional}>
+                      <td className="border-right">{req.indicador}</td>
+                      <td className="desc-table">{req.descricao}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="req req-non-func">
+              <div className="req-header">
+                <span>Requisitos Não Funcionais</span>
+                <input
+                  type="search"
+                  id="inputSearch2"
+                  className="search"
+                  placeholder="Pesquisar por ID ou descrição"
+                />
+                <div className="add" onClick={handleModalReqNonFunc}>
+                  +
+                </div>
+              </div>
+
+              <table className="content-table" id="table2">
+                <thead>
+                  <tr>
+                    <th className="id-table">ID</th>
+                    <th className="tipo-table">Tipo</th>
+                    <th className="desc-table">Descrição</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {reqNonFunc.map((req) => (
+                    <tr key={req.id_req_non_functional}>
+                      <td className="id-tabl border-right">{req.indicador}</td>
+                      <td className="border-right">{req.tipo}</td>
+                      <td className="desc-table">{req.descricao}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
 
-        <div className={`modal modal-sub ${modalSub}`}>
-          <div className="card-modal-sub">
+        <div className={`modal modal-req-func ${modalReqFunc}`}>
+          <div className="card-modal">
             <div className="card-header">
-              Cadastrar Subsistema
-              <div className="close" onClick={handleModalSubAdd}>
+              Cadastrar Requisito Funcional
+              <div className="close" onClick={handleModalReqFunc}>
                 x
               </div>
             </div>
 
             <div className="card-body">
-              <form onSubmit={handleCreateSub}>
-                <label htmlFor="">Nome</label>
+              <form onSubmit={handleCreateReqFunc}>
+                <label htmlFor="">Indicador</label>
                 <input
                   type="text"
-                  value={subName}
+                  placeholder="Ex: RF01"
                   required
-                  onChange={(e) => setSubName(e.target.value)}
+                  value={reqFuncID}
+                  onChange={(e) => setReqFuncID(e.target.value)}
                 />
                 <label htmlFor="">Descrição</label>
                 <textarea
                   cols="30"
                   rows="4"
-                  value={subDescription}
                   required
-                  onChange={(e) => setSubDescription(e.target.value)}
+                  value={reqFuncDesc}
+                  onChange={(e) => setReqFuncDesc(e.target.value)}
+                  placeholder="Ex: O sistema deve..."
                 />
                 <button type="submit">Cadastrar</button>
               </form>
@@ -373,41 +408,64 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className={`modal modal-member ${modalMember}`}>
-          <div className="card-modal-sub">
+        <div className={`modal modal-req-non-func ${modalReqNonFunc}`}>
+          <div className="card-modal">
             <div className="card-header">
-              Cadastrar Membro
-              <div className="close" onClick={handleModalMemberAdd}>
+              Cadastrar Requisito Não Funcional
+              <div className="close" onClick={handleModalReqNonFunc}>
                 x
               </div>
             </div>
 
             <div className="card-body">
-              <form onSubmit={handleCreateMember}>
-                <label htmlFor="">Nome</label>
+              <form onSubmit={handleCreateReqNonFunc}>
+                <label htmlFor="">Indicador</label>
                 <input
                   type="text"
-                  value={memberName}
+                  placeholder="Ex: RNF01"
                   required
-                  onChange={(e) => setMemberName(e.target.value)}
+                  value={reqNonFuncId}
+                  onChange={(e) => setReqNonFuncID(e.target.value)}
                 />
-
-                <label htmlFor="">Email</label>
-                <input
-                  type="email"
-                  value={memberEmail}
+                <label htmlFor="">Tipo</label>
+                <select
+                  value={reqNonFuncTipo}
+                  onChange={(e) => setReqNonFuncTipo(e.target.value)}
                   required
-                  onChange={(e) => setMemberEmail(e.target.value)}
-                />
-
-                <label htmlFor="">Senha</label>
-                <input
-                  type="password"
-                  value={memberPassword}
+                >
+                  <option value="" selected disabled>
+                    Selecione o tipo
+                  </option>
+                  <option value="Confiabilidade">Confiabilidade</option>
+                  <option value="Desempenho">Desempenho</option>
+                  <option value="Disponibilidade">Disponibilidade</option>
+                  <option value="Eficiência">Eficiência</option>
+                  <option value="Entrega">Entrega</option>
+                  <option value="Ético">Ético</option>
+                  <option value="Implementação">Implementação</option>
+                  <option value="Interoperabilidade">Interoperabilidade</option>
+                  <option value="Legal">Legal</option>
+                  <option value="Portabilidade">Portabilidade</option>
+                  <option value="Padrão">Padrão</option>
+                  <option value="Segurança">Segurança</option>
+                  <option value="Usabilidade">Usabilidade</option>
+                </select>
+                {/* <input
+                  type="text"
+                  placeholder="Ex: Usabilidade"
                   required
-                  onChange={(e) => setMemberPassword(e.target.value)}
+                  value={reqNonFuncTipo}
+                  onChange={(e) => setReqNonFuncTipo(e.target.value)}
+                /> */}
+                <label htmlFor="">Descrição</label>
+                <textarea
+                  cols="30"
+                  rows="4"
+                  required
+                  value={reqNonFuncDesc}
+                  onChange={(e) => setReqNonFuncDesc(e.target.value)}
+                  placeholder="Ex: O sistema deve..."
                 />
-
                 <button type="submit">Cadastrar</button>
               </form>
             </div>

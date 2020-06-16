@@ -92,6 +92,7 @@ a {
   border-radius: 10px;
   display: flex;
   align-items: center;
+  text-align: center;
   flex-direction: column;
   justify-content: center;
   box-shadow: 2px 5px 20px rgba(143, 143, 143, 0.231);

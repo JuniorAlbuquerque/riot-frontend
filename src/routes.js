@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import CreateProject from './pages/CreateProject'
 import Dashboard from './pages/Dashboard'
 import Project from './pages/ProjectInfo'
+import SubSystem from './pages/SubInfo'
 
 export default function Routes() {
   return (
@@ -16,6 +17,7 @@ export default function Routes() {
         <Route path="/home" component={Dashboard} />
         <Route path="/create-project" component={CreateProject} />
         <Route path="/project" component={Project} />
+        <Route path="/subsystem" component={SubSystem} />
       </Switch>
     </BrowserRouter>
   )

@@ -216,7 +216,7 @@ table tbody tr:last-of-type {
 
 /* MODAL */
 .modal {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -325,4 +325,36 @@ table tbody tr:last-of-type {
 .modal .card-modal-sub .card-body button:hover {
   background: rgb(26, 182, 86);
   transition: 0.5s;
+}
+
+.main .title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main .title .pdf {
+  width: 140px;
+  height: 45px;
+  background: #0a2266;
+  border: 0;
+  border-radius: 8px;
+  margin-bottom: 7px;
+  color: #e4e4e4;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 17px;
+  line-height: 45px;
+  transition: filter 0.2s;
+}
+
+.main .title .pdf.active {
+  cursor: wait;
+}
+
+.main .title .pdf:hover {
+  filter: brightness(80%);
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { saveAs } from 'file-saver'
 
 import './style.css'
 
@@ -26,6 +27,8 @@ export default function Dashboard() {
   const [memberEmail, setMemberEmail] = useState('')
   const [memberPassword, setMemberPassword] = useState('')
   const userToken = localStorage.getItem('token')
+  const [buttonPdf, setButtonPdf] = useState('')
+  const [pdfText, setPdfText] = useState('Download PDF')
 
   let data = useLocation()
 
@@ -114,6 +117,20 @@ export default function Dashboard() {
     } catch (error) {
       alert('erro')
     }
+  }
+
+  async function getPdf() {
+    setButtonPdf('active')
+    setPdfText('Waiting...')
+    await api
+      .get(`/project/downloadpdf/${data.state.id}`, { responseType: 'blob' })
+      .then((res) => {
+        const pdfBlob = new Blob([res.data], { type: 'application/pdf' })
+
+        saveAs(pdfBlob, `${projectName}.pdf`)
+        setButtonPdf('')
+        setPdfText('Download PDF')
+      })
   }
 
   const handleGetInfoProject = async () => {
@@ -270,7 +287,12 @@ export default function Dashboard() {
         </nav>
       </aside>
       <main className="main">
-        <h3>{projectName}</h3>
+        <div className="title">
+          <h3>{projectName}</h3>
+          <button className={`pdf ${buttonPdf}`} onClick={getPdf}>
+            {pdfText}
+          </button>
+        </div>
         <div className="project-container">
           <div className="subs">
             <div className="card-header">

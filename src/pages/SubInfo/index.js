@@ -19,11 +19,11 @@ export default function Dashboard() {
   const [reqNonFunc, setReqNonFunc] = useState([])
 
   const [modalReqFunc, setModalReqFunc] = useState('')
-  const [reqFuncID, setReqFuncID] = useState('')
+  // const [reqFuncID, setReqFuncID] = useState('')
   const [reqFuncDesc, setReqFuncDesc] = useState('')
 
   const [modalReqNonFunc, setModalReqNonFunc] = useState('')
-  const [reqNonFuncId, setReqNonFuncID] = useState('')
+  // const [reqNonFuncId, setReqNonFuncID] = useState('')
   const [reqNonFuncTipo, setReqNonFuncTipo] = useState('')
   const [reqNonFuncDesc, setReqNonFuncDesc] = useState('')
 
@@ -44,7 +44,7 @@ export default function Dashboard() {
   async function handleCreateReqFunc(e) {
     e.preventDefault()
     const dataReqFunc = {
-      indicador: reqFuncID,
+      // indicador: reqFuncID,
       descricao: reqFuncDesc,
       id_sub: data.state.id,
     }
@@ -66,7 +66,7 @@ export default function Dashboard() {
           })
         })
 
-      setReqFuncID('')
+      // setReqFuncID('')
       setReqFuncDesc('')
       getSubInfo()
     } catch (error) {
@@ -78,7 +78,7 @@ export default function Dashboard() {
     e.preventDefault()
 
     const dataReqNonFunc = {
-      indicador: reqNonFuncId,
+      // indicador: reqNonFuncId,
       tipo: reqNonFuncTipo,
       descricao: reqNonFuncDesc,
       id_sub: data.state.id,
@@ -102,7 +102,7 @@ export default function Dashboard() {
           })
         })
 
-      setReqNonFuncID('')
+      // setReqNonFuncID('')
       setReqNonFuncTipo('')
       setReqNonFuncDesc('')
       getSubInfo()
@@ -385,14 +385,14 @@ export default function Dashboard() {
 
             <div className="card-body">
               <form onSubmit={handleCreateReqFunc}>
-                <label htmlFor="">Indicador</label>
+                {/* <label htmlFor="">Indicador</label>
                 <input
                   type="text"
                   placeholder="Ex: RF01"
                   required
                   value={reqFuncID}
                   onChange={(e) => setReqFuncID(e.target.value)}
-                />
+                /> */}
                 <label htmlFor="">Descrição</label>
                 <textarea
                   cols="30"
@@ -419,14 +419,14 @@ export default function Dashboard() {
 
             <div className="card-body">
               <form onSubmit={handleCreateReqNonFunc}>
-                <label htmlFor="">Indicador</label>
+                {/* <label htmlFor="">Indicador</label>
                 <input
                   type="text"
                   placeholder="Ex: RNF01"
                   required
                   value={reqNonFuncId}
                   onChange={(e) => setReqNonFuncID(e.target.value)}
-                />
+                /> */}
                 <label htmlFor="">Tipo</label>
                 <select
                   value={reqNonFuncTipo}

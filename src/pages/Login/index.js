@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { saveAs } from 'file-saver'
 
 import './style.css'
 
@@ -15,14 +14,6 @@ export default function Login() {
   const [senha, setPassword] = useState('')
 
   const history = useHistory()
-
-  async function getPdf() {
-    api.get('/admin', { responseType: 'blob' }).then((res) => {
-      const pdfBlob = new Blob([res.data], { type: 'application/pdf' })
-
-      saveAs(pdfBlob, 'teste.pdf')
-    })
-  }
 
   async function handleLogin(e) {
     e.preventDefault()

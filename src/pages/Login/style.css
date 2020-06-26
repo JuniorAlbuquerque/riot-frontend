@@ -77,14 +77,45 @@ body {
   font-size: 18px;
 }
 
-@media (max-width: 758px) {
+@media (max-width: 939px) {
+  body {
+    background: #00002e;
+  }
   .login-container {
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'info' 'form';
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-container section.info {
+    grid-area: info;
+    position: absolute;
+    top: 20px;
+    color: white;
+  }
+
+  .login-container section.info .logo-img {
+    width: 200px;
+  }
+
+  .login-container section.info p {
+    width: 300px;
   }
 
   .login-container section.form {
-    margin-bottom: 0px;
-    margin-right: 0px;
+    grid-area: form;
+    width: 100%;
+  }
+
+  .login-container section.form form {
+    position: absolute;
+    top: 370px;
+    left: 50%;
+    width: 80%;
+    transform: translate(-50%, -50%);
   }
 
   .login-container .colab-img {

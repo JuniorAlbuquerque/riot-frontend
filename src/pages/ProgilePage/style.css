@@ -1,0 +1,45 @@
+.profile-main {
+  display: flex;
+  margin: 40px 0px 20px 40px;
+  flex-direction: column;
+}
+
+.profile-main .title {
+  font-size: 20px;
+}
+
+.profile-main .profile-form {
+  max-width: 460px;
+  margin: 40px auto;
+}
+
+.profile-main .profile-form h4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.profile-main .profile-form input {
+  background: #fff;
+  border: 0;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  color: black;
+}
+
+.profile-main .profile-form input[type="submit"] {
+  cursor: pointer;
+  background: #4B9B79;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  transition: filter .2s;
+  
+}
+
+.profile-main .profile-form input[type="submit"]:hover {
+  filter: brightness(90%);
+}
+
+.profile-main .profile-form input[type="submit"].active {
+  cursor: wait;
+}

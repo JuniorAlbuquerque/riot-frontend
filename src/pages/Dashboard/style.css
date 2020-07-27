@@ -29,10 +29,20 @@ a {
 .dashboard-container .header .info {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .dashboard-container .header .info .logout {
   margin-left: 20px;
+  outline: 0;
+  background: none;
+  border: 0;
+  font-size: 16px;
+  padding: 0;
+}
+
+.dashboard-container .header .info .logout:hover {
+  color: rebeccapurple;
 }
 
 /*======== ASIDE ========*/

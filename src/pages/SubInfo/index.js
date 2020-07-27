@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useRouteMatch } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import $ from 'jquery'
 
@@ -10,6 +10,10 @@ import LogoImg from '../../assets/logo-riot.svg'
 import api from '../../services/api'
 
 export default function Dashboard() {
+  const { params } = useRouteMatch()
+
+  const userId = localStorage.getItem('userId')
+
   const userToken = localStorage.getItem('token')
   const [toggleSate, setToggleSate] = useState('')
   const [projectName, setProject] = useState('')
@@ -46,7 +50,7 @@ export default function Dashboard() {
     const dataReqFunc = {
       // indicador: reqFuncID,
       descricao: reqFuncDesc,
-      id_sub: data.state.id,
+      id_sub: params.id_sub,
     }
     try {
       await api
@@ -81,7 +85,7 @@ export default function Dashboard() {
       // indicador: reqNonFuncId,
       tipo: reqNonFuncTipo,
       descricao: reqNonFuncDesc,
-      id_sub: data.state.id,
+      id_sub: params.id_sub,
     }
 
     try {
@@ -112,7 +116,7 @@ export default function Dashboard() {
   }
 
   async function getSubInfo() {
-    await api.get(`/sub/${data.state.id}`).then((response) => {
+    await api.get(`/sub/${params.id_sub}`).then((response) => {
       setSubName(response.data.sub[0].nome)
       setSubDescription(response.data.sub[0].descricao)
       setReqFunc(response.data.reqFunc)
@@ -139,7 +143,8 @@ export default function Dashboard() {
   useEffect(() => {
     setProject(data.state.projectName)
     getSubInfo()
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.state.projectName])
 
   return (
     <div className="dashboard-container">
@@ -218,30 +223,30 @@ export default function Dashboard() {
               </a>
             </li>
             <li>
-              <a href="/">
-                <svg
-                  width="40"
-                  height="40"
-                  viewBox="0 0 40 40"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M33.3333 35V31.6667C33.3333 29.8986 32.6309 28.2029 31.3807 26.9526C30.1304 25.7024 28.4347 25 26.6666 25H13.3333C11.5652 25 9.86949 25.7024 8.61925 26.9526C7.369 28.2029 6.66663 29.8986 6.66663 31.6667V35"
-                    stroke="#000051"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M20 18.3333C23.6819 18.3333 26.6667 15.3486 26.6667 11.6667C26.6667 7.98477 23.6819 5 20 5C16.3181 5 13.3334 7.98477 13.3334 11.6667C13.3334 15.3486 16.3181 18.3333 20 18.3333Z"
-                    stroke="#000051"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </a>
+              <Link to={`/profile/${userId}`}>
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M33.3333 35V31.6667C33.3333 29.8986 32.6309 28.2029 31.3807 26.9526C30.1304 25.7024 28.4347 25 26.6666 25H13.3333C11.5652 25 9.86949 25.7024 8.61925 26.9526C7.369 28.2029 6.66663 29.8986 6.66663 31.6667V35"
+                      stroke="#000051"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M20 18.3333C23.6819 18.3333 26.6667 15.3486 26.6667 11.6667C26.6667 7.98477 23.6819 5 20 5C16.3181 5 13.3334 7.98477 13.3334 11.6667C13.3334 15.3486 16.3181 18.3333 20 18.3333Z"
+                      stroke="#000051"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
             </li>
             <li>
               <a href="/">
@@ -282,10 +287,11 @@ export default function Dashboard() {
       <main className="main">
         <h3>
           <Link
-            to={{
-              pathname: '/project',
-              state: { id: data.state.projectId },
-            }}
+            to={`/project/${params.id_project}`}
+            // to={{
+            //   pathname: '/project',
+            //   state: { id: data.state.projectId },
+            // }}
           >
             {projectName}
           </Link>{' '}

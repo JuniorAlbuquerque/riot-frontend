@@ -1,22 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 import './style.css'
 
-import LogoImg from '../../assets/logo-riot.svg'
 import api from '../../services/api'
+
+import LogoImg from '../../assets/logo-riot.svg'
 
 export default function Dashboard() {
   const [toggleSate, setToggleSate] = useState('')
 
-  const [nome, setNome] = useState('')
-  const [tipo, setTipo] = useState('')
-  const [dominio, setDominio] = useState('')
-  const [descricao, setDescricao] = useState('')
-
-  const id_admin = localStorage.getItem('userId')
-  const userToken = localStorage.getItem('token')
+  const userName = localStorage.getItem('username')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [senha, setSenha] = useState('')
+  const userId = localStorage.getItem('userId')
+  const [buttonUpdate, setButtonUpdate] = useState('')
+  const [buttonText, setButtonText] = useState('Salvar')
+  const [disable, setDisable] = useState('')
 
   const history = useHistory()
 
@@ -24,44 +26,72 @@ export default function Dashboard() {
     setToggleSate(toggleSate === '' ? 'active' : '')
   }
 
-  async function handleCreateProject(e) {
-    e.preventDefault()
-    const data = { nome, tipo, dominio, descricao, id_admin }
+  async function handleGetProfile() {
     try {
-      await api
-        .post('/project/create', data, {
-          headers: {
-            Authorization: userToken,
-          },
-        })
-        .then((response) => {
-          Swal.fire({
-            title: 'Successo!',
-            text: response.data.message,
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          }).then((result) => {
-            if (result.value) {
-              history.push('/home')
-            }
-          })
-        })
+      const response = await api.get(`/user/profile/${userId}`)
+
+      setName(response.data.nome)
+      setEmail(response.data.email)
     } catch (error) {
-      alert('Erro ao cadastrar caso')
+      alert(error)
     }
   }
+
+  async function updateUser(e) {
+    e.preventDefault()
+    setButtonUpdate('active')
+    setButtonText('Aguarde...')
+    setDisable('disabled')
+
+    try {
+      await api.post('/user/update', {
+        id_user: userId,
+        nome: name,
+        email,
+        senha,
+      }).then(response => {
+        localStorage.setItem('username', name)
+        setButtonUpdate('')
+        setButtonText('Salvar')
+        setDisable('')
+        Swal.fire({
+          title: 'Successo!',
+          text: response.data.message,
+          icon: 'success',
+          confirmButtonText: 'Ok',
+        }).then((result) => {
+          if (result.value) {
+            history.push('/home')
+          }
+        })
+      })
+
+    } catch (error) {
+      
+    }
+  }
+
+  useEffect(() => {
+    handleGetProfile()
+  }, [])
 
   return (
     <div className="dashboard-container">
       <header className="header">
         <img onClick={handleToggle} src={LogoImg} alt="" />
-        <Link to="/">Sair</Link>
+
+        <div className="info">
+          <span>Bem Vindo, {userName}</span>
+          <Link className="logout" to="/">
+            Sair
+          </Link>
+        </div>
       </header>
       <aside className={`aside ${toggleSate}`}>
         <nav>
           <ul>
             <li>
-              <a href="/home">
+              <Link to="/home">
                 <svg
                   width="40"
                   height="40"
@@ -84,7 +114,7 @@ export default function Dashboard() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
+              </Link>
             </li>
             <li>
               <a href="/">
@@ -128,7 +158,7 @@ export default function Dashboard() {
               </a>
             </li>
             <li>
-            <Link to={`/profile/${id_admin}`}>
+              <a href="/">
                 <svg
                   width="40"
                   height="40"
@@ -151,7 +181,7 @@ export default function Dashboard() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </Link>
+              </a>
             </li>
             <li>
               <a href="/">
@@ -189,61 +219,46 @@ export default function Dashboard() {
           </ul>
         </nav>
       </aside>
-      <main className="main">
-        <h3>Criar Projeto</h3>
-        <div className="card-create">
-          <form onSubmit={handleCreateProject} className="form-create">
-            <div className="form-row">
-              <div className="row">
-                <label htmlFor="">Nome</label>
-                <input
-                  className="h3"
-                  type="text"
-                  required
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-              </div>
-
-              <div className="row">
-                <label htmlFor="">Tipo do sistema</label>
-                <input
-                  type="text"
-                  value={tipo}
-                  required
-                  onChange={(e) => setTipo(e.target.value)}
-                />
-              </div>
-
-              <div className="row">
-                <label htmlFor="">Domínio do Sistema</label>
-                <input
-                  type="text"
-                  value={dominio}
-                  required
-                  onChange={(e) => setDominio(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="row">
-                <label htmlFor="">Descrição</label>
-                <textarea
-                  cols="30"
-                  rows="10"
-                  value={descricao}
-                  required
-                  onChange={(e) => setDescricao(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <button type="submit" className="btn-submit">
-              Cadastrar Projeto
-            </button>
-          </form>
+      <main className="profile-main">
+        <div className="title">
+          <h4>Usuário</h4>
         </div>
+
+        <form onSubmit={updateUser}className="profile-form">
+          <h4>Editar Dados</h4>
+
+          <label htmlFor="">Nome</label>
+          <input
+            type="text"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          <label htmlFor="">E-mail</label>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <label htmlFor="">Nova Senha</label>
+          <input
+            type="password"
+            required
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+          />
+
+          <input
+            type="submit"
+            required
+            value={buttonText}
+            disabled={disable}
+            className={`${buttonUpdate}`}
+          />
+        </form>
       </main>
     </div>
   )

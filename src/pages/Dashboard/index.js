@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import './style.css'
 
@@ -15,8 +15,15 @@ export default function Dashboard() {
   const userToken = localStorage.getItem('token')
   const userId = localStorage.getItem('userId')
 
+  const history = useHistory()
+
   function handleToggle() {
     setToggleSate(toggleSate === '' ? 'active' : '')
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('token');
+    history.push('/')
   }
 
   useEffect(() => {
@@ -34,9 +41,9 @@ export default function Dashboard() {
 
         <div className="info">
           <span>Bem Vindo, {userName}</span>
-          <Link className="logout" to="/">
+          <button className="logout" onClick={handleLogout}> 
             Sair
-          </Link>
+          </button>
         </div>
       </header>
       <aside className={`aside ${toggleSate}`}>
@@ -110,7 +117,7 @@ export default function Dashboard() {
               </a>
             </li>
             <li>
-              <a href="/">
+              <Link to={`/profile/${userId}`}>
                 <svg
                   width="40"
                   height="40"
@@ -133,7 +140,7 @@ export default function Dashboard() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
+              </Link>
             </li>
             <li>
               <a href="/">
@@ -183,10 +190,11 @@ export default function Dashboard() {
             <Link
               className="project-link"
               key={project.id_project}
-              to={{
-                pathname: '/project',
-                state: { id: project.id_project },
-              }}
+              to={`/project/${project.id_project}`}
+              // to={{
+              //   pathname: '/project',
+              //   state: { id: project.id_project },
+              // }}
             >
               <div className="card-project card2">{project.nome}</div>
             </Link>

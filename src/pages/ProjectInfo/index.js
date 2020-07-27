@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useRouteMatch } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { saveAs } from 'file-saver'
 
@@ -10,6 +10,10 @@ import LogoImg from '../../assets/logo-riot.svg'
 import api from '../../services/api'
 
 export default function Dashboard() {
+  const { params } = useRouteMatch()
+
+  const userId = localStorage.getItem('userId')
+
   const [toggleSate, setToggleSate] = useState('')
   const [modalSub, setModalSub] = useState('')
   const [modalMember, setModalMember] = useState('')
@@ -49,7 +53,7 @@ export default function Dashboard() {
     const dataSub = {
       nome: subName,
       descricao: subDescription,
-      id_project: data.state.id,
+      id_project: params.id_project,
     }
 
     try {
@@ -134,7 +138,7 @@ export default function Dashboard() {
   }
 
   const handleGetInfoProject = async () => {
-    await api.get(`/project/info/${data.state.id}`).then((response) => {
+    await api.get(`/project/info/${params.id_project}`).then((response) => {
       setProject(response.data.project[0].nome)
       setDomain(response.data.project[0].dominio)
       setType(response.data.project[0].tipo)
@@ -146,7 +150,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     handleGetInfoProject()
-  }, [data.state.id])
+  }, [])
 
   return (
     <div className="dashboard-container">
@@ -225,7 +229,7 @@ export default function Dashboard() {
               </a>
             </li>
             <li>
-              <a href="/">
+              <Link to={`/profile/${userId}`}>
                 <svg
                   width="40"
                   height="40"
@@ -248,7 +252,7 @@ export default function Dashboard() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
+              </Link>
             </li>
             <li>
               <a href="/">
@@ -306,13 +310,19 @@ export default function Dashboard() {
                 key={sub.id_sub}
                 className="sub-card"
                 to={{
-                  pathname: '/subsystem',
+                  pathname: `/subsystem/${sub.id_sub}/${params.id_project}`,
                   state: {
-                    id: sub.id_sub,
-                    projectName,
-                    projectId: data.state.id,
-                  },
+                    projectName
+                  }
                 }}
+                // to={{
+                //   pathname: '/subsystem',
+                //   state: {
+                //     id: sub.id_sub,
+                //     projectName,
+                //     projectId: params.id_project,
+                //   },
+                // }}
               >
                 {sub.nome}
               </Link>

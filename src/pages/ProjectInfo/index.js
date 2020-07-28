@@ -84,7 +84,7 @@ export default function Dashboard() {
       email: memberEmail,
       nome: memberName,
       senha: memberPassword,
-      id_project: data.state.id,
+      id_project: params.id_project,
     }
 
     try {
@@ -127,7 +127,7 @@ export default function Dashboard() {
     setButtonPdf('active')
     setPdfText('Waiting...')
     await api
-      .get(`/project/downloadpdf/${data.state.id}`, { responseType: 'blob' })
+      .get(`/project/downloadpdf/${params.id_project}`, { responseType: 'blob' })
       .then((res) => {
         const pdfBlob = new Blob([res.data], { type: 'application/pdf' })
 

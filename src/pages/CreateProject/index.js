@@ -87,7 +87,7 @@ export default function Dashboard() {
               </a>
             </li>
             <li>
-              <a href="/">
+              <a href="#/">
                 <svg
                   width="32"
                   height="32"
@@ -154,7 +154,7 @@ export default function Dashboard() {
               </Link>
             </li>
             <li>
-              <a href="/">
+              <a href="#/">
                 <svg
                   width="36"
                   height="36"
@@ -194,7 +194,7 @@ export default function Dashboard() {
         <div className="card-create">
           <form onSubmit={handleCreateProject} className="form-create">
             <div className="form-row">
-              <div className="row">
+              <div className="row-1">
                 <label htmlFor="">Nome</label>
                 <input
                   className="h3"
@@ -205,7 +205,7 @@ export default function Dashboard() {
                 />
               </div>
 
-              <div className="row">
+              <div className="row-2">
                 <label htmlFor="">Tipo do sistema</label>
                 <input
                   type="text"
@@ -215,7 +215,7 @@ export default function Dashboard() {
                 />
               </div>
 
-              <div className="row">
+              <div className="row-3">
                 <label htmlFor="">Domínio do Sistema</label>
                 <input
                   type="text"

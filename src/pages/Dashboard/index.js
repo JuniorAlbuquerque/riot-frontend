@@ -76,7 +76,7 @@ export default function Dashboard() {
               </Link>
             </li>
             <li>
-              <a href="/">
+              <a href="#/">
                 <svg
                   width="32"
                   height="32"
@@ -143,7 +143,7 @@ export default function Dashboard() {
               </Link>
             </li>
             <li>
-              <a href="/">
+              <a href="#/">
                 <svg
                   width="36"
                   height="36"

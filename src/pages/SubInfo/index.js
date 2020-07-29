@@ -182,7 +182,7 @@ export default function Dashboard() {
               </Link>
             </li>
             <li>
-              <a href="/">
+              <a href="#/" onClick={ev => {ev.preventDefault()}}>
                 <svg
                   width="32"
                   height="32"
@@ -249,7 +249,7 @@ export default function Dashboard() {
                 </Link>
             </li>
             <li>
-              <a href="/">
+              <a href="/#" onClick={ev => {ev.preventDefault()}}>
                 <svg
                   width="36"
                   height="36"
@@ -443,6 +443,7 @@ export default function Dashboard() {
                     Selecione o tipo
                   </option>
                   <option value="Confiabilidade">Confiabilidade</option>
+                  <option value="Compatibilidade">Compatibilidade</option>
                   <option value="Desempenho">Desempenho</option>
                   <option value="Disponibilidade">Disponibilidade</option>
                   <option value="Eficiência">Eficiência</option>
@@ -451,9 +452,12 @@ export default function Dashboard() {
                   <option value="Implementação">Implementação</option>
                   <option value="Interoperabilidade">Interoperabilidade</option>
                   <option value="Legal">Legal</option>
+                  <option value="Manutenibilidade">Manutenibilidade</option>
                   <option value="Portabilidade">Portabilidade</option>
                   <option value="Padrão">Padrão</option>
+                  <option value="Reusabilidade">Reusabilidade</option>
                   <option value="Segurança">Segurança</option>
+                  <option value="Testabilidade">Testabilidade</option>
                   <option value="Usabilidade">Usabilidade</option>
                 </select>
                 {/* <input

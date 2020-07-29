@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation, useRouteMatch } from 'react-router-dom'
+import { Link, useRouteMatch } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { saveAs } from 'file-saver'
 
@@ -33,8 +33,6 @@ export default function Dashboard() {
   const userToken = localStorage.getItem('token')
   const [buttonPdf, setButtonPdf] = useState('')
   const [pdfText, setPdfText] = useState('Download PDF')
-
-  let data = useLocation()
 
   function handleToggle() {
     setToggleSate(toggleSate === '' ? 'active' : '')
@@ -188,7 +186,7 @@ export default function Dashboard() {
               </Link>
             </li>
             <li>
-              <a href="/">
+              <a href="#/">
                 <svg
                   width="32"
                   height="32"

@@ -95,6 +95,7 @@ body {
 .dashboard-container .main .card-create .form-create {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .dashboard-container .main .card-create .form-create .form-row {
@@ -104,6 +105,26 @@ body {
   max-width: 1120px;
   margin: auto;
   justify-content: space-between;
+  flex: 1;
+}
+
+.dashboard-container .main .card-create .form-create .form-row .row {
+  width: 100%;
+}
+
+.dashboard-container .main .card-create .form-create .form-row .row-1 {
+  width: 60%;
+  margin-right: 14px;
+}
+
+.dashboard-container .main .card-create .form-create .form-row .row-2 {
+  width: 20%;
+  margin-right: 14px;
+
+}
+
+.dashboard-container .main .card-create .form-create .form-row .row-3 {
+  width: 20%;
 }
 
 .dashboard-container .main .card-create .form-create label {
@@ -116,18 +137,21 @@ body {
   border-radius: 8px;
   border: none;
   color: black;
+  width: 100%;
 }
 
 .dashboard-container .main .card-create .form-create input.h1 {
-  width: 200px;
+  width: 100%;
 }
 
 .dashboard-container .main .card-create .form-create input.h3 {
-  width: 500px;
+  width: 100%;
 }
 
 .dashboard-container .main .card-create .form-create textarea {
-  width: 1114px;
+  width: 100%;
+  max-width: 1220px;
+  flex: 1;
   height: 200px;
   background: rgba(196, 196, 196, 0.5);
   border-radius: 8px;
@@ -142,11 +166,12 @@ body {
 .dashboard-container .main .card-create .form-create .btn-submit {
   width: 289px;
   height: 50px;
-  background: #8de078;
+  background: #4B9B79;
   margin: 30px auto;
   border-radius: 8px;
   border: none;
   font-size: 16px;
+  color: #fff;
 }
 
 .dashboard-container .main .card-create .form-create .btn-submit:hover {

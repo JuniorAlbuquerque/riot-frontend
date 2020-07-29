@@ -239,6 +239,7 @@ body {
   flex-direction: column;
   margin: 17px 40px;
   color: black;
+  -webkit-font-smoothing: antialiased;
 }
 
 .card-modal form input {
@@ -250,6 +251,7 @@ body {
   color: black;
   margin-bottom: 20px;
   font: 400 14px Muli, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .card-modal form input::placeholder {
@@ -263,6 +265,7 @@ body {
   margin-top: 10px;
   padding: 10px;
   color: black;
+  -webkit-font-smoothing: antialiased;
   font: 400 14px Muli, sans-serif;
 }
 
@@ -271,17 +274,19 @@ body {
 }
 
 .card-modal form button {
-  background: rgb(71, 241, 136);
+  background: #4B9B79;
   border: none;
   margin-top: 20px;
   margin-bottom: 10px;
   font: 400 16px Muli, sans-serif;
   padding: 10px;
   border-radius: 4px;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
 }
 
 .card-modal button:hover {
-  background: rgb(59, 207, 116);
+  background: #306b52;
   transition: 0.5s;
 }
 
@@ -294,6 +299,7 @@ body {
   color: black;
   margin-bottom: 20px;
   font: 400 14px Muli, sans-serif;
+
 }
 
 .border-right {

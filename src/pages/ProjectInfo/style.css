@@ -219,7 +219,7 @@ table tbody tr:last-of-type {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%) translateY(calc(-50% - .5px));
   background: rgba(0, 0, 0, 0.349);
   width: 100%;
   height: 100%;
@@ -232,6 +232,7 @@ table tbody tr:last-of-type {
   justify-content: center;
   transition: visibility 0s, opacity 0.2s linear;
   z-index: 999;
+  -webkit-font-smoothing: antialiased;
 }
 
 .modal-sub.active {
@@ -313,17 +314,18 @@ table tbody tr:last-of-type {
 }
 
 .modal .card-modal-sub .card-body form button {
-  background: rgb(38, 224, 109);
+  background: #4B9B79;
   border: none;
   margin-top: 20px;
   margin-bottom: 10px;
   font: 400 16px Muli, sans-serif;
   padding: 10px;
   border-radius: 4px;
+  color: #fff;
 }
 
 .modal .card-modal-sub .card-body button:hover {
-  background: rgb(26, 182, 86);
+  background: #34775b;
   transition: 0.5s;
 }
 

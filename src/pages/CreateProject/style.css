@@ -178,3 +178,22 @@ body {
   filter: brightness(90%);
   transition: 0.4s ease-out;
 }
+
+.label-row {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.icon-tip {
+  margin-right: 7px;
+  border: 1px solid #808080;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #808080;
+  cursor: pointer;
+}

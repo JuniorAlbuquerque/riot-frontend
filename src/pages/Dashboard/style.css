@@ -106,6 +106,12 @@ a {
   flex-direction: column;
   justify-content: center;
   box-shadow: 2px 5px 20px rgba(143, 143, 143, 0.231);
+  transform: scale(1);
+}
+
+.card-project:hover {
+  transition: .25s;
+  transform: scale(1.02);
 }
 
 .card-project span {

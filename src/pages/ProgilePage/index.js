@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import './style.css'
 
@@ -90,6 +92,7 @@ export default function Dashboard() {
       <aside className={`aside ${toggleSate}`}>
         <nav>
           <ul>
+          <Tippy content="Home" placement="right">
             <li>
               <Link to="/home">
                 <svg
@@ -115,9 +118,11 @@ export default function Dashboard() {
                   />
                 </svg>
               </Link>
-            </li>
+            </li>       
+            </Tippy>
+            <Tippy content="Template" placement="right">
             <li>
-              <a href="#/">
+              <a href="https://drive.google.com/file/d/133qGQJyYTm-cgzx9TPXW4aLk00GIVpag/view" target="_blank" without rel="noopener noreferrer">
                 <svg
                   width="32"
                   height="32"
@@ -156,7 +161,9 @@ export default function Dashboard() {
                   </defs>
                 </svg>
               </a>
-            </li>
+            </li>      
+            </Tippy>
+            <Tippy content="Perfil" placement="right">
             <li>
               <a href="#/">
                 <svg
@@ -183,6 +190,8 @@ export default function Dashboard() {
                 </svg>
               </a>
             </li>
+            </Tippy>
+            <Tippy content="Ajuda (em desenvolvimento)" placement="right">
             <li>
               <a href="#/">
                 <svg
@@ -215,7 +224,8 @@ export default function Dashboard() {
                   />
                 </svg>
               </a>
-            </li>
+            </li>        
+            </Tippy>
           </ul>
         </nav>
       </aside>

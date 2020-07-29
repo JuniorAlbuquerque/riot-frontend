@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import './style.css'
 
@@ -49,6 +51,7 @@ export default function Dashboard() {
       <aside className={`aside ${toggleSate}`}>
         <nav>
           <ul>
+            <Tippy content="Home" placement="right">
             <li>
               <Link to="/home">
                 <svg
@@ -74,9 +77,11 @@ export default function Dashboard() {
                   />
                 </svg>
               </Link>
-            </li>
+            </li>       
+            </Tippy>
+            <Tippy content="Template" placement="right">
             <li>
-              <a href="#/">
+              <a href="https://drive.google.com/file/d/133qGQJyYTm-cgzx9TPXW4aLk00GIVpag/view" target="_blank" without rel="noopener noreferrer">
                 <svg
                   width="32"
                   height="32"
@@ -115,7 +120,9 @@ export default function Dashboard() {
                   </defs>
                 </svg>
               </a>
-            </li>
+            </li>      
+            </Tippy>
+            <Tippy content="Perfil" placement="right">
             <li>
               <Link to={`/profile/${userId}`}>
                 <svg
@@ -141,7 +148,9 @@ export default function Dashboard() {
                   />
                 </svg>
               </Link>
-            </li>
+            </li>      
+            </Tippy>
+            <Tippy content="Ajuda (em desenvolvimento)" placement="right">
             <li>
               <a href="#/">
                 <svg
@@ -174,18 +183,19 @@ export default function Dashboard() {
                   />
                 </svg>
               </a>
-            </li>
+            </li>        
+            </Tippy>
           </ul>
         </nav>
       </aside>
       <main className="main">
         <div className="cards">
+          <Link to="/create-project">
           <div className="card-project card1">
-            <Link to="/create-project">
-              <span>+</span>
-            </Link>
+            <span>+</span>
             <p>Criar novo projeto</p>
           </div>
+          </Link>
           {projects.map((project) => (
             <Link
               className="project-link"

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link, useRouteMatch } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { saveAs } from 'file-saver'
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import './style.css'
 
@@ -159,6 +161,7 @@ export default function Dashboard() {
       <aside className={`aside ${toggleSate}`}>
         <nav>
           <ul>
+          <Tippy content="Home" placement="right">
             <li>
               <Link to="/home">
                 <svg
@@ -184,9 +187,11 @@ export default function Dashboard() {
                   />
                 </svg>
               </Link>
-            </li>
+            </li>       
+            </Tippy>
+            <Tippy content="Template" placement="right">
             <li>
-              <a href="#/">
+              <a href="https://drive.google.com/file/d/133qGQJyYTm-cgzx9TPXW4aLk00GIVpag/view" target="_blank" without rel="noopener noreferrer">
                 <svg
                   width="32"
                   height="32"
@@ -225,7 +230,9 @@ export default function Dashboard() {
                   </defs>
                 </svg>
               </a>
-            </li>
+            </li>      
+            </Tippy>
+            <Tippy content="Perfil" placement="right">
             <li>
               <Link to={`/profile/${userId}`}>
                 <svg
@@ -251,9 +258,11 @@ export default function Dashboard() {
                   />
                 </svg>
               </Link>
-            </li>
+            </li>      
+            </Tippy>
+            <Tippy content="Ajuda (em desenvolvimento)" placement="right">
             <li>
-              <a href="/">
+              <a href="#/">
                 <svg
                   width="36"
                   height="36"
@@ -284,7 +293,8 @@ export default function Dashboard() {
                   />
                 </svg>
               </a>
-            </li>
+            </li>        
+            </Tippy>
           </ul>
         </nav>
       </aside>
@@ -298,10 +308,12 @@ export default function Dashboard() {
         <div className="project-container">
           <div className="subs">
             <div className="card-header">
-              Subsistemas
-              <div className="add" onClick={handleModalSubAdd}>
-                +
-              </div>
+              Módulos
+              <Tippy content="Cadastrar novo módulo">
+                <div className="add" onClick={handleModalSubAdd}>
+                  +
+                </div>
+              </Tippy>
             </div>
             {subs.map((sub) => (
               <Link
@@ -330,9 +342,11 @@ export default function Dashboard() {
           <div className="members">
             <div className="card-header">
               Membros
-              <div className="add" onClick={handleModalMemberAdd}>
-                +
-              </div>
+              <Tippy content="Cadastrar novo membro">
+                <div className="add" onClick={handleModalMemberAdd}>
+                  +
+                </div>
+              </Tippy>
             </div>
             <table className="content-table" id="table">
               <thead>
@@ -374,7 +388,7 @@ export default function Dashboard() {
         <div className={`modal modal-sub ${modalSub}`}>
           <div className="card-modal-sub">
             <div className="card-header">
-              Cadastrar Subsistema
+              Cadastrar Módulo
               <div className="close" onClick={handleModalSubAdd}>
                 x
               </div>

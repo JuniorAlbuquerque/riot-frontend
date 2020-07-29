@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import './style.css'
 
@@ -60,8 +62,9 @@ export default function Dashboard() {
       <aside className={`aside ${toggleSate}`}>
         <nav>
           <ul>
+          <Tippy content="Home" placement="right">
             <li>
-              <a href="/home">
+              <Link to="/home">
                 <svg
                   width="40"
                   height="40"
@@ -84,10 +87,12 @@ export default function Dashboard() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
-            </li>
+              </Link>
+            </li>       
+            </Tippy>
+            <Tippy content="Template" placement="right">
             <li>
-              <a href="#/">
+              <a href="https://drive.google.com/file/d/133qGQJyYTm-cgzx9TPXW4aLk00GIVpag/view" target="_blank" without rel="noopener noreferrer">
                 <svg
                   width="32"
                   height="32"
@@ -126,7 +131,9 @@ export default function Dashboard() {
                   </defs>
                 </svg>
               </a>
-            </li>
+            </li>      
+            </Tippy>
+            <Tippy content="Perfil" placement="right">
             <li>
             <Link to={`/profile/${id_admin}`}>
                 <svg
@@ -153,6 +160,8 @@ export default function Dashboard() {
                 </svg>
               </Link>
             </li>
+            </Tippy>
+            <Tippy content="Ajuda (em desenvolvimento)" placement="right">
             <li>
               <a href="#/">
                 <svg
@@ -185,7 +194,8 @@ export default function Dashboard() {
                   />
                 </svg>
               </a>
-            </li>
+            </li>        
+            </Tippy>
           </ul>
         </nav>
       </aside>
@@ -195,7 +205,12 @@ export default function Dashboard() {
           <form onSubmit={handleCreateProject} className="form-create">
             <div className="form-row">
               <div className="row-1">
-                <label htmlFor="">Nome</label>
+                <div className="label-row"> 
+                  <label htmlFor="">Nome</label>
+                  <Tippy content="Nome do projeto, ex: Smart Home">
+                    <div className="icon-tip">?</div>
+                  </Tippy>
+                </div>
                 <input
                   className="h3"
                   type="text"
@@ -206,7 +221,12 @@ export default function Dashboard() {
               </div>
 
               <div className="row-2">
-                <label htmlFor="">Tipo do sistema</label>
+                <div className="label-row"> 
+                  <label htmlFor="">Tipo do sistema</label>
+                  <Tippy content="ex: Sistema IoT, ciber-físico, ubíquo">
+                    <div className="icon-tip">?</div>
+                  </Tippy>
+                </div>
                 <input
                   type="text"
                   value={tipo}
@@ -216,7 +236,12 @@ export default function Dashboard() {
               </div>
 
               <div className="row-3">
-                <label htmlFor="">Domínio do Sistema</label>
+                <div className="label-row"> 
+                  <label htmlFor="">Domínio do Sistema</label>
+                  <Tippy content="ex: Cidade Inteligente, Lazer, Saúde...">
+                    <div className="icon-tip">?</div>
+                  </Tippy>
+                </div>
                 <input
                   type="text"
                   value={dominio}

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useRouteMatch } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import $ from 'jquery'
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import './style.css'
 
@@ -43,6 +45,54 @@ export default function Dashboard() {
 
   function handleModalReqNonFunc() {
     setModalReqNonFunc(modalReqNonFunc === '' ? 'active' : '')
+  }
+  
+  async function handleDelete(id_req) {
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Excluir requisito do projeto não tem reversão!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, deletar!',
+      cancelButtonText: 'Cancelar!'
+    }).then(async (result) => {
+      if (result.value) {
+        await api.delete('/requirement/delete', {data: {id_req, type: 'functional'}}).then((response) => {
+          Swal.fire(
+            response.data.message,
+            '',
+            'success'
+          )
+        })
+        getSubInfo()
+      }
+    })
+  }
+
+  async function handleDeleteNonFunctional(id_req) {
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Excluir requisito do projeto não tem reversão!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, deletar!',
+      cancelButtonText: 'Cancelar!'
+    }).then(async (result) => {
+      if (result.value) {
+        await api.delete('/requirement/delete', {data: {id_req, type: 'nonfunctional'}}).then((response) => {
+          Swal.fire(
+            response.data.message,
+            '',
+            'success'
+          )
+        })
+        getSubInfo()
+      }
+    })
   }
 
   async function handleCreateReqFunc(e) {
@@ -155,6 +205,7 @@ export default function Dashboard() {
       <aside className={`aside ${toggleSate}`}>
         <nav>
           <ul>
+          <Tippy content="Home" placement="right">
             <li>
               <Link to="/home">
                 <svg
@@ -180,9 +231,11 @@ export default function Dashboard() {
                   />
                 </svg>
               </Link>
-            </li>
+            </li>       
+            </Tippy>
+            <Tippy content="Template" placement="right">
             <li>
-              <a href="#/" onClick={ev => {ev.preventDefault()}}>
+              <a href="https://drive.google.com/file/d/133qGQJyYTm-cgzx9TPXW4aLk00GIVpag/view" without="true" target="_blank" rel="noopener noreferrer">
                 <svg
                   width="32"
                   height="32"
@@ -221,35 +274,39 @@ export default function Dashboard() {
                   </defs>
                 </svg>
               </a>
-            </li>
+            </li>      
+            </Tippy>
+            <Tippy content="Perfil" placement="right">
             <li>
               <Link to={`/profile/${userId}`}>
-                  <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M33.3333 35V31.6667C33.3333 29.8986 32.6309 28.2029 31.3807 26.9526C30.1304 25.7024 28.4347 25 26.6666 25H13.3333C11.5652 25 9.86949 25.7024 8.61925 26.9526C7.369 28.2029 6.66663 29.8986 6.66663 31.6667V35"
-                      stroke="#000051"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M20 18.3333C23.6819 18.3333 26.6667 15.3486 26.6667 11.6667C26.6667 7.98477 23.6819 5 20 5C16.3181 5 13.3334 7.98477 13.3334 11.6667C13.3334 15.3486 16.3181 18.3333 20 18.3333Z"
-                      stroke="#000051"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Link>
-            </li>
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M33.3333 35V31.6667C33.3333 29.8986 32.6309 28.2029 31.3807 26.9526C30.1304 25.7024 28.4347 25 26.6666 25H13.3333C11.5652 25 9.86949 25.7024 8.61925 26.9526C7.369 28.2029 6.66663 29.8986 6.66663 31.6667V35"
+                    stroke="#000051"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M20 18.3333C23.6819 18.3333 26.6667 15.3486 26.6667 11.6667C26.6667 7.98477 23.6819 5 20 5C16.3181 5 13.3334 7.98477 13.3334 11.6667C13.3334 15.3486 16.3181 18.3333 20 18.3333Z"
+                    stroke="#000051"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+            </li>      
+            </Tippy>
+            <Tippy content="Ajuda (em desenvolvimento)" placement="right">
             <li>
-              <a href="/#" onClick={ev => {ev.preventDefault()}}>
+              <a href="#/">
                 <svg
                   width="36"
                   height="36"
@@ -280,7 +337,8 @@ export default function Dashboard() {
                   />
                 </svg>
               </a>
-            </li>
+            </li>        
+            </Tippy>
           </ul>
         </nav>
       </aside>
@@ -319,9 +377,11 @@ export default function Dashboard() {
                   className="search"
                   placeholder="Pesquisar por ID ou descrição"
                 />
-                <div className="add" onClick={handleModalReqFunc}>
-                  +
-                </div>
+                <Tippy content="Cadastrar Requisito Funcional">
+                  <div className="add" onClick={handleModalReqFunc}>
+                    +
+                  </div>
+                </Tippy>
               </div>
 
               <table className="content-table" id="table">
@@ -329,6 +389,7 @@ export default function Dashboard() {
                   <tr>
                     <th className="id-table">ID</th>
                     <th className="desc-table">Descrição</th>
+                    <th className="">Ação</th>
                   </tr>
                 </thead>
 
@@ -337,6 +398,9 @@ export default function Dashboard() {
                     <tr key={req.id_reqfunctional}>
                       <td className="border-right">{req.indicador}</td>
                       <td className="desc-table">{req.descricao}</td>
+                      <Tippy content="Excluir Requisito">
+                        <td className="excluir-req" onClick={() => handleDelete(req.id_reqfunctional)}>X</td>
+                      </Tippy>
                     </tr>
                   ))}
                 </tbody>
@@ -352,9 +416,11 @@ export default function Dashboard() {
                   className="search"
                   placeholder="Pesquisar por ID ou descrição"
                 />
-                <div className="add" onClick={handleModalReqNonFunc}>
-                  +
-                </div>
+                <Tippy content="Cadastrar Requisito Não Funcional">
+                  <div className="add" onClick={handleModalReqNonFunc}>
+                    +
+                  </div>
+                </Tippy>
               </div>
 
               <table className="content-table" id="table2">
@@ -363,6 +429,7 @@ export default function Dashboard() {
                     <th className="id-table">ID</th>
                     <th className="tipo-table">Tipo</th>
                     <th className="desc-table">Descrição</th>
+                    <th className="">Ação</th>
                   </tr>
                 </thead>
 
@@ -372,6 +439,9 @@ export default function Dashboard() {
                       <td className="id-tabl border-right">{req.indicador}</td>
                       <td className="border-right">{req.tipo}</td>
                       <td className="desc-table">{req.descricao}</td>
+                      <Tippy content="Excluir Requisito">
+                        <td className="excluir-req" onClick={() => handleDeleteNonFunctional(req.id_req_non_functional)}>X</td>
+                      </Tippy>
                     </tr>
                   ))}
                 </tbody>
@@ -439,7 +509,7 @@ export default function Dashboard() {
                   onChange={(e) => setReqNonFuncTipo(e.target.value)}
                   required
                 >
-                  <option value="" selected disabled>
+                  <option disabled>
                     Selecione o tipo
                   </option>
                   <option value="Confiabilidade">Confiabilidade</option>

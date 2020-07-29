@@ -179,8 +179,14 @@ body {
 }
 
 .desc-table {
-  max-width: 400px;
-  min-width: 400px;
+  max-width: 340px;
+  min-width: 340px;
+}
+
+.excluir-req {
+  color: #ec3737;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* MODAL */

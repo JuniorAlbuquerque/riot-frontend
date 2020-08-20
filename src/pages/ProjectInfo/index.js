@@ -5,6 +5,8 @@ import { saveAs } from 'file-saver'
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 import './style.css'
 
 import LogoImg from '../../assets/logo-riot.svg'
@@ -150,7 +152,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     handleGetInfoProject()
-  }, [])
+  }, []);
 
   return (
     <div className="dashboard-container">
@@ -308,14 +310,15 @@ export default function Dashboard() {
         <div className="project-container">
           <div className="subs">
             <div className="card-header">
-              Módulos
+              <span>Módulos</span>
               <Tippy content="Cadastrar novo módulo">
                 <div className="add" onClick={handleModalSubAdd}>
                   +
                 </div>
               </Tippy>
             </div>
-            {subs.map((sub) => (
+            { subs.length > 0 ?
+            subs.map((sub) => (
               <Link
                 key={sub.id_sub}
                 className="sub-card"
@@ -336,12 +339,38 @@ export default function Dashboard() {
               >
                 {sub.nome}
               </Link>
-            ))}
+            )) :
+            <SkeletonTheme color="#ddd" highlightColor="#eee">
+              <Skeleton variant="rect" width={150} height={35} />
+            </SkeletonTheme>
+            }
+            {/* {subs.map((sub) => (
+              <Link
+                key={sub.id_sub}
+                className="sub-card"
+                to={{
+                  pathname: `/subsystem/${sub.id_sub}/${params.id_project}`,
+                  state: {
+                    projectName
+                  }
+                }}
+                // to={{
+                //   pathname: '/subsystem',
+                //   state: {
+                //     id: sub.id_sub,
+                //     projectName,
+                //     projectId: params.id_project,
+                //   },
+                // }}
+              >
+                {sub.nome}
+              </Link>
+            ))} */}
           </div>
 
           <div className="members">
             <div className="card-header">
-              Membros
+              <span>Membros</span>
               <Tippy content="Cadastrar novo membro">
                 <div className="add" onClick={handleModalMemberAdd}>
                   +

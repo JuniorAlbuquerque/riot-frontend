@@ -97,9 +97,13 @@ body {
 
 .project-container .card-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
+
+.project-container .card-header span {
+  margin-top: 5px;
+}
+
 
 .project-container .card-header .add {
   background: gray;
@@ -108,6 +112,7 @@ body {
   border-radius: 4px;
   color: white;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .project-container .subs .sub-card {
@@ -121,7 +126,8 @@ body {
   background: #ffffff;
   box-shadow: 5px 7px 4px rgba(204, 204, 204, 0.23);
   border-radius: 7px;
-  margin-top: 20px;
+  margin-top: 0px;
+  margin-bottom: 20px;
 }
 
 table {
@@ -359,4 +365,8 @@ table tbody tr:last-of-type {
 
 .main .title .pdf:hover {
   filter: brightness(80%);
+}
+
+.loading {
+  margin-top: 30px;
 }

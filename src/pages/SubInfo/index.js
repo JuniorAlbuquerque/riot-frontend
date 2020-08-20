@@ -5,6 +5,8 @@ import $ from 'jquery'
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 import './style.css'
 
 import LogoImg from '../../assets/logo-riot.svg'
@@ -30,7 +32,7 @@ export default function Dashboard() {
 
   const [modalReqNonFunc, setModalReqNonFunc] = useState('')
   // const [reqNonFuncId, setReqNonFuncID] = useState('')
-  const [reqNonFuncTipo, setReqNonFuncTipo] = useState('')
+  const [reqNonFuncTipo, setReqNonFuncTipo] = useState('Confiabilidade')
   const [reqNonFuncDesc, setReqNonFuncDesc] = useState('')
 
   let data = useLocation()
@@ -157,7 +159,7 @@ export default function Dashboard() {
         })
 
       // setReqNonFuncID('')
-      setReqNonFuncTipo('')
+      setReqNonFuncTipo('Confiabilidade')
       setReqNonFuncDesc('')
       getSubInfo()
     } catch (error) {
@@ -359,11 +361,27 @@ export default function Dashboard() {
           <div className="sub-info">
             <div className="sub-name">
               <span>Nome</span>
-              <input type="text" defaultValue={subName} disabled />
+              {
+                subName ? <input type="text" defaultValue={subName} disabled /> :
+                <SkeletonTheme color="#ddd" highlightColor="#eee">
+                  <Skeleton variant="rect" width={370} height={48} style={{marginTop: '10px', marginRight: '40px'}} />
+                </SkeletonTheme>
+              }
+              {/* <SkeletonTheme color="#ddd" highlightColor="#eee">
+                <Skeleton variant="rect" width={370} height={48} style={{marginTop: '10px', marginRight: '40px'}} />
+              </SkeletonTheme> */}
+              {/* <input type="text" defaultValue={subName} disabled /> */}
             </div>
             <div className="sub-desc">
               <span>Descrição</span>
-              <div className="desc">{subDescription}</div>
+              <div className="desc">
+                {subDescription ? subDescription : 
+                  <SkeletonTheme color="#ddd" highlightColor="#eee">
+                    <Skeleton variant="rect" width={210} height={'auto'} />
+                  </SkeletonTheme>
+                }
+                {/* {subDescription} */}
+              </div>
             </div>
           </div>
 
@@ -403,6 +421,15 @@ export default function Dashboard() {
                       </Tippy>
                     </tr>
                   ))}
+                  {/* {reqFunc.map((req) => (
+                    <tr key={req.id_reqfunctional}>
+                      <td className="border-right">{req.indicador}</td>
+                      <td className="desc-table">{req.descricao}</td>
+                      <Tippy content="Excluir Requisito">
+                        <td className="excluir-req" onClick={() => handleDelete(req.id_reqfunctional)}>X</td>
+                      </Tippy>
+                    </tr>
+                  ))} */}
                 </tbody>
               </table>
             </div>
@@ -509,10 +536,12 @@ export default function Dashboard() {
                   onChange={(e) => setReqNonFuncTipo(e.target.value)}
                   required
                 >
-                  <option disabled>
+                  <option
+                    disabled
+                  >
                     Selecione o tipo
                   </option>
-                  <option value="Confiabilidade">Confiabilidade</option>
+                  <option defaultValue value="Confiabilidade">Confiabilidade</option>
                   <option value="Compatibilidade">Compatibilidade</option>
                   <option value="Desempenho">Desempenho</option>
                   <option value="Disponibilidade">Disponibilidade</option>

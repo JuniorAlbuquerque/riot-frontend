@@ -222,6 +222,19 @@ body {
   align-items: center;
 }
 
+.content-table2 {
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.9em;
+  width: 100%;
+  min-width: 400px;
+  text-align: center;
+  font: Muli;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: white;
+}
+
 .card-modal .close {
   background: #ffffff;
   color: #f00;

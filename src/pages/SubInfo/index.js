@@ -402,7 +402,7 @@ export default function Dashboard() {
                 </Tippy>
               </div>
 
-              <table className="content-table" id="table">
+              <table className="content-table2" id="table">
                 <thead>
                   <tr>
                     <th className="id-table">ID</th>
@@ -450,7 +450,7 @@ export default function Dashboard() {
                 </Tippy>
               </div>
 
-              <table className="content-table" id="table2">
+              <table className="content-table2" id="table2">
                 <thead>
                   <tr>
                     <th className="id-table">ID</th>

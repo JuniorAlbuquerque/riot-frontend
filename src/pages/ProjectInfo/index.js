@@ -317,7 +317,8 @@ export default function Dashboard() {
                 </div>
               </Tippy>
             </div>
-            { subs.length > 0 ?
+            { 
+            // subs.length > 0 ?
             subs.map((sub) => (
               <Link
                 key={sub.id_sub}
@@ -339,10 +340,11 @@ export default function Dashboard() {
               >
                 {sub.nome}
               </Link>
-            )) :
-            <SkeletonTheme color="#ddd" highlightColor="#eee">
-              <Skeleton variant="rect" width={150} height={35} />
-            </SkeletonTheme>
+            )) 
+            // :
+            // <SkeletonTheme color="#ddd" highlightColor="#eee">
+            //   <Skeleton variant="rect" width={150} height={35} />
+            // </SkeletonTheme>
             }
             {/* {subs.map((sub) => (
               <Link

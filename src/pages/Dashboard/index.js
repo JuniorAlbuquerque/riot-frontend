@@ -16,6 +16,7 @@ export default function Dashboard() {
   const userName = localStorage.getItem('username')
   const userToken = localStorage.getItem('token')
   const userId = localStorage.getItem('userId')
+  const level = localStorage.getItem('access_level')
 
   const history = useHistory()
 
@@ -150,9 +151,9 @@ export default function Dashboard() {
               </Link>
             </li>      
             </Tippy>
-            <Tippy content="Ajuda (em desenvolvimento)" placement="right">
+            <Tippy content="Ajuda" placement="right">
             <li>
-              <a href="#/">
+              <Link to="/help">
                 <svg
                   width="36"
                   height="36"
@@ -182,7 +183,7 @@ export default function Dashboard() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
+              </Link>
             </li>        
             </Tippy>
           </ul>
@@ -190,12 +191,16 @@ export default function Dashboard() {
       </aside>
       <main className="main">
         <div className="cards">
-          <Link to="/create-project">
-          <div className="card-project card1">
-            <span>+</span>
-            <p>Criar novo projeto</p>
-          </div>
-          </Link>
+          {
+            level === '1' ? <Link to="/create-project">
+            <div className="card-project card1">
+              <span>+</span>
+              <p>Criar novo projeto</p>
+            </div>
+            </Link> :
+            ''
+          }
+          
           {projects.map((project) => (
             <Link
               className="project-link"

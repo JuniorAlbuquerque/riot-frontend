@@ -346,7 +346,7 @@ table tbody tr:last-of-type {
   background: #0a2266;
   border: 0;
   border-radius: 8px;
-  margin-bottom: 7px;
+  
   color: #e4e4e4;
   font-weight: 700;
   display: inline-block;
@@ -369,4 +369,35 @@ table tbody tr:last-of-type {
 
 .loading {
   margin-top: 30px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 7px;
+}
+
+.btn-del {
+  background: none;
+  border: none;
+  margin-left: 7px;
+  margin-right: 20px;
+
+  border: 1px solid rgb(233, 100, 100);
+  padding: 10px;
+
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-del svg {
+  width: 22px;
+  height: 22px;
+}
+
+.btn-del svg path  {
+  fill: rgb(233, 100, 100);
 }

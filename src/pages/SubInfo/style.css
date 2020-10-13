@@ -324,3 +324,12 @@ body {
 .border-right {
   border-right: 1px solid #aaaaaa;
 }
+
+.action-module {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-module .del-module {
+  margin-right: 14px;
+}

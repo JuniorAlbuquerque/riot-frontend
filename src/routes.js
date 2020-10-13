@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard'
 import Project from './pages/ProjectInfo'
 import SubSystem from './pages/SubInfo'
 import Profile from './pages/ProgilePage';
+import Help from './pages/Help';
 
 import { isAuthenticated } from './auth';
 
@@ -29,6 +30,7 @@ export default function Routes() {
         <PrivateRoute path="/create-project" component={CreateProject} />
         <PrivateRoute path="/project/:id_project" component={Project} />
         <PrivateRoute path="/subsystem/:id_sub/:id_project" component={SubSystem} />
+        <PrivateRoute path="/help" component={Help}/>
       </Switch>
     </BrowserRouter>
   )

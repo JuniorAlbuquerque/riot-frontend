@@ -6,7 +6,7 @@ import './style.css'
 
 import api from '../../services/api'
 
-import LogoImg from '../../assets/Logo.svg'
+import LogoImg from '../../assets/logo-rst.svg'
 import CheckImg from '../../assets/check-bg.png'
 
 export default function Login() {
@@ -29,6 +29,7 @@ export default function Login() {
 
       localStorage.setItem('username', response.data.user[0].nome)
       localStorage.setItem('token', response.data.token)
+      localStorage.setItem('access_level', response.data.access_level)
       localStorage.setItem('userId', id)
 
       history.push('/home')
@@ -71,8 +72,7 @@ export default function Login() {
       <section className="info">
         <img className="logo-img" src={LogoImg} alt="Requirements of IoT" />
         <p>
-          Uma ferramenta para especificar <br></br> requisitos baseados em
-          sistemas de Internet das Coisas
+        Uma Ferramenta de Apoio a Especificação de Requisitos de Sistemas de Software IoT
         </p>
         <img className="colab-img" src={CheckImg} alt="Colaborate" />
       </section>

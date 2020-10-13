@@ -1,24 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import Swal from 'sweetalert2'
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import './style.css'
 
 import LogoImg from '../../assets/logo-riot.svg'
-import api from '../../services/api'
 
 export default function Dashboard() {
   const [toggleSate, setToggleSate] = useState('')
+  const [toggleCard, setToggleCard] = useState('')
+  const [toggleCard2, setToggleCard2] = useState('')
+  const [toggleCard3, setToggleCard3] = useState('')
 
-  const [nome, setNome] = useState('')
-  const [tipo, setTipo] = useState('')
-  const [dominio, setDominio] = useState('')
-  const [descricao, setDescricao] = useState('')
-
-  const id_admin = localStorage.getItem('userId')
-  const userToken = localStorage.getItem('token')
+  const userName = localStorage.getItem('username')
+  const userId = localStorage.getItem('userId')
 
   const history = useHistory()
 
@@ -26,43 +22,38 @@ export default function Dashboard() {
     setToggleSate(toggleSate === '' ? 'active' : '')
   }
 
-  async function handleCreateProject(e) {
-    e.preventDefault()
-    const data = { nome, tipo, dominio, descricao, id_admin }
-    try {
-      await api
-        .post('/project/create', data, {
-          headers: {
-            Authorization: userToken,
-          },
-        })
-        .then((response) => {
-          Swal.fire({
-            title: 'Successo!',
-            text: response.data.message,
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          }).then((result) => {
-            if (result.value) {
-              history.push('/home')
-            }
-          })
-        })
-    } catch (error) {
-      alert('Erro ao cadastrar caso')
+  function handleToggleCard(id) {
+    if (id === '1') {
+      setToggleCard(toggleCard === '' ? 'active' : '')
+    }
+    if (id === '2') {
+      setToggleCard2(toggleCard2 === '' ? 'active' : '')
+    }
+    if (id === '3') {
+      setToggleCard3(toggleCard3 === '' ? 'active' : '')
     }
   }
 
+  function handleLogout() {
+    localStorage.removeItem('token');
+    history.push('/')
+  }
   return (
     <div className="dashboard-container">
       <header className="header">
         <img onClick={handleToggle} src={LogoImg} alt="" />
-        <Link to="/">Sair</Link>
+
+        <div className="info">
+          <span>Bem Vindo, {userName}</span>
+          <button className="logout" onClick={handleLogout}> 
+            Sair
+          </button>
+        </div>
       </header>
       <aside className={`aside ${toggleSate}`}>
         <nav>
           <ul>
-          <Tippy content="Home" placement="right">
+            <Tippy content="Home" placement="right">
             <li>
               <Link to="/home">
                 <svg
@@ -135,7 +126,7 @@ export default function Dashboard() {
             </Tippy>
             <Tippy content="Perfil" placement="right">
             <li>
-            <Link to={`/profile/${id_admin}`}>
+              <Link to={`/profile/${userId}`}>
                 <svg
                   width="40"
                   height="40"
@@ -159,7 +150,7 @@ export default function Dashboard() {
                   />
                 </svg>
               </Link>
-            </li>
+            </li>      
             </Tippy>
             <Tippy content="Ajuda (em desenvolvimento)" placement="right">
             <li>
@@ -200,74 +191,75 @@ export default function Dashboard() {
         </nav>
       </aside>
       <main className="main">
-        <h3>Criar Projeto</h3>
-        <div className="card-create">
-          <form onSubmit={handleCreateProject} className="form-create">
-            <div className="form-row">
-              <div className="row-1">
-                <div className="label-row"> 
-                  <label htmlFor="">Nome</label>
-                  <Tippy content="Nome do projeto, ex: Smart Home">
-                    <div className="icon-tip">?</div>
-                  </Tippy>
-                </div>
-                <input
-                  className="h3"
-                  type="text"
-                  required
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-              </div>
+        <div className="head-help">
+          <h1>Smart Agro</h1>
+          <span>Projeto Base</span>
+        </div>
 
-              <div className="row-2">
-                <div className="label-row"> 
-                  <label htmlFor="">Tipo do sistema</label>
-                  <Tippy content="ex: Sistema IoT, ciber-físico, ubíquo">
-                    <div className="icon-tip">?</div>
-                  </Tippy>
-                </div>
-                <input
-                  type="text"
-                  value={tipo}
-                  required
-                  onChange={(e) => setTipo(e.target.value)}
-                />
-              </div>
+        <div className="info-help">
+          <aside>
+            <p>
+              <strong>Descrição: </strong>
+              Projeto para monitoramento de consumo de água, energia e implatação de um sistema de irrigação inteligente 
+              em uma fazenda no interior do Amazonas
+            </p>
+          </aside>
 
-              <div className="row-3">
-                <div className="label-row"> 
-                  <label htmlFor="">Domínio do Sistema</label>
-                  <Tippy content="ex: Cidade Inteligente, Lazer, Saúde...">
-                    <div className="icon-tip">?</div>
-                  </Tippy>
-                </div>
-                <input
-                  type="text"
-                  value={dominio}
-                  required
-                  onChange={(e) => setDominio(e.target.value)}
-                />
-              </div>
+          <aside>
+            <p>
+              <strong>Tipo de Projeto: </strong>
+              IoT
+            </p>
+          </aside>
+
+          <aside>
+            <p>
+              <strong>Domínio: </strong>
+              Agricultura
+            </p>
+          </aside>
+        </div>
+
+        <div className="section-cards">
+          <div className={`card-help ${toggleCard}`} onClick={() => handleToggleCard('1')}>
+            <div className="title-card-help">
+              <div className="icon">!</div>
+              <span>Módulos</span>
             </div>
 
-            <div className="form-row">
-              <div className="row">
-                <label htmlFor="">Descrição</label>
-                <textarea
-                  cols="30"
-                  rows="10"
-                  value={descricao}
-                  required
-                  onChange={(e) => setDescricao(e.target.value)}
-                />
-              </div>
+            <div className="card-help-text">
+              Os módulos representam partes do sistema com o objetivo de separar as responsabilidades do mesmo. 
+              Ex: O módulo (software) é responsável por apresentar os requisitos referentes a dashboard do sistema, 
+              desde o cadastro de um usuário, até o acompanhamento de equipamentos na interface.
+              Já o módulo (Broker MQTT) é responsável por apresentar os requisitos referentes ao protocolo de comunicação.
+            </div>
+          </div>
+
+          <div className={`card-help ${toggleCard2}`} onClick={() => handleToggleCard('2')}>
+            <div className="title-card-help">
+              <div className="icon">!</div>
+              <span>Requisitos Funcionais</span>
             </div>
 
-            <button type="submit" className="btn-submit">
-              Cadastrar Projeto
-            </button>
-          </form>
+            <div className="card-help-text">
+              Um requisito especificado é uma descrição da funcionalidade de um sistema. 
+              Os requisitos funcionais de software descrevem as funções que o software deve executar, como por exemplo:
+              O sistema deve apresentar uma dashboard com as informações de monitoramento de temperatura e umidade do ambiente.
+            </div>
+          </div>
+
+          <div className={`card-help ${toggleCard3}`} onClick={() => handleToggleCard('3')}>
+            <div className="title-card-help">
+              <div className="icon">!</div>
+              <span>Requisitos Não Funcionais</span>
+            </div>
+
+            <div className="card-help-text">
+            Os requisitos não-funcionais são requisitos que expressam condições que o software deve atender ou qualidades 
+            específicas que o sistema deve ter. Em vez de informar o que o sistema fará, os requisitos não-funcionais colocam restrições no sistema.
+            Como por exemplo: Um requisito não-funcional de Disponibilidade (O sistema deve manter conexão com o servidor CloudMQTT)
+            </div>
+          </div>
         </div>
       </main>
     </div>

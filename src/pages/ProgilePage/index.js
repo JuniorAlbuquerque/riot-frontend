@@ -193,7 +193,7 @@ export default function Dashboard() {
             </Tippy>
             <Tippy content="Ajuda (em desenvolvimento)" placement="right">
             <li>
-              <a href="#/">
+              <Link to="/help">
                 <svg
                   width="36"
                   height="36"
@@ -223,7 +223,7 @@ export default function Dashboard() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
+              </Link>
             </li>        
             </Tippy>
           </ul>

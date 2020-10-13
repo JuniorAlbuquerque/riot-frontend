@@ -1,0 +1,90 @@
+.head-help {
+  display: flex;
+  align-items: baseline;
+}
+
+.head-help h1 {
+  color: #152254;
+}
+
+.head-help span {
+  margin-left: 14px;
+  color: #A8A8A8;
+}
+
+.info-help aside {
+  display: flex;
+  margin-top: 10px;
+
+  font-size: 18px;
+}
+
+.info-help aside strong {
+  color: #152254;
+  margin-right: 4px;
+}
+
+.info-help aside p {
+  color: #4F4F4F;
+}
+
+/* SECTION CARDS */
+.section-cards {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 14px;
+}
+
+.section-cards .card-help {
+  background: #FFFFFF;
+  box-shadow: 0px 2px 6px 3px rgba(101, 101, 101, 0.08);
+  border-radius: 7px;
+
+  cursor: pointer;
+  max-height: 45px;
+  overflow: hidden;
+
+  margin-bottom: 14px;
+}
+
+.section-cards .card-help.active {
+  max-height: 400px;
+
+  transition: .4s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.section-cards .card-help.active .title-card-help {
+  color: #152254;
+} 
+
+.section-cards .card-help.active .title-card-help .icon {
+  border: none;
+  background: #152254;
+  color: white;
+}
+
+.section-cards .card-help .title-card-help {
+  display: flex;
+  padding: 10px;
+
+  align-items: center;
+  color: #949494;
+}
+
+.section-cards .card-help .title-card-help .icon {
+  border: 1px solid #949494;
+  width: 25px;
+  height: 25px;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 10px;
+}
+
+.section-cards .card-help .card-help-text {
+  padding: 4px 10px 14px 20px;
+}

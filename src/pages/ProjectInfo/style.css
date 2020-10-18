@@ -401,3 +401,103 @@ table tbody tr:last-of-type {
 .btn-del svg path  {
   fill: rgb(233, 100, 100);
 }
+
+@media (max-width: 768px) {
+  .project-container {
+    width: 100%;
+    margin: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .main .title .pdf {
+    width: auto;
+    height: 45px;
+
+    padding: 7px;
+    font-size: 12px;
+    margin-right: 7px;
+    line-height: 20px;
+  }
+
+  /* DESCRICAO */
+  .info input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .info .dominio {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info .tipo {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+
+  .info .descricao {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+
+  .info .descricao .desc-info {
+    width: 100%;
+    margin-top: 10px;
+  } 
+
+  .btn-del {
+    margin-right: 0px;
+  }
+
+  .project-container .subs .sub-card {
+    width: 100%;
+    padding: 10px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
+
+  /* MODAL SUB */
+  .modal .card-modal-sub {
+    width: 100%;
+    margin: 0 20px;
+  }
+
+  /* TABLE */
+  .content-table {
+    min-width: 200px;
+    margin-bottom: 14px;
+  }
+
+  thead tr {
+    text-align: center;
+    font-weight: bold;
+    background: #000051;
+    color: white;
+  }
+
+  /* top-left border-radius */
+  table tr:first-child,
+  th:first-child {
+    border-top-left-radius: 7px;
+  }
+
+  table tr:first-child,
+  th:last-child {
+    border-top-right-radius: 7px;
+  }
+
+  table th,
+  table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #c5c5c5;
+  }
+
+  table tbody tr:last-of-type {
+    border-bottom: 2px solid #06234e;
+  }
+}

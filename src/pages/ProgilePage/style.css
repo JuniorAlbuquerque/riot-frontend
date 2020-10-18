@@ -43,3 +43,11 @@
 .profile-main .profile-form input[type="submit"].active {
   cursor: wait;
 }
+
+@media (max-width: 768px) {
+  .profile-main {
+    display: flex;
+    margin: 25px;
+    flex-direction: column;
+  }
+}

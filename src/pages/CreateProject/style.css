@@ -197,3 +197,46 @@ body {
   color: #808080;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .dashboard-container .main .card-create {
+    background: white;
+    width: 100%;
+    max-width: 1240px;
+    height: auto;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .dashboard-container .main .card-create .form-create .form-row {
+    flex-direction: column;
+  }
+
+  .dashboard-container .main .card-create .form-create .form-row .row-1 {
+    width: 100%;
+    margin-right: 0px;
+  }
+  
+  .dashboard-container .main .card-create .form-create .form-row .row-2 {
+    width: 100%;
+    margin-right: 0px;
+  
+  }
+  
+  .dashboard-container .main .card-create .form-create .form-row .row-3 {
+    width: 100%;
+  }
+
+  .dashboard-container .main .card-create .form-create .btn-submit {
+    width: 95% !important;
+    height: 50px;
+    background: #4B9B79;
+    margin: 30px auto;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    color: #fff;
+  }
+  
+}

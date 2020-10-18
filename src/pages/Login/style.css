@@ -79,8 +79,12 @@ body {
 
 @media (max-width: 939px) {
   body {
-    background: #00002e;
+    background: #ffffff !important;
   }
+  .login-container section.form {
+    background: #ffffff;
+  }
+
   .login-container {
     display: grid;
     grid-template-rows: auto auto;
@@ -94,7 +98,7 @@ body {
     grid-area: info;
     position: absolute;
     top: 20px;
-    color: white;
+    color: #00002e;
   }
 
   .login-container section.info .logo-img {
@@ -110,6 +114,10 @@ body {
     width: 100%;
   }
 
+  .login-container section.form form h1 {
+    color: #00002e;
+  }
+
   .login-container section.form form {
     position: absolute;
     top: 370px;
@@ -120,5 +128,21 @@ body {
 
   .login-container .colab-img {
     display: none;
+  }
+
+  .login-container section.form form input {
+    border: 1px solid #00002e;
+    color: #00002e;
+  }
+
+  .login-container section.form form input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #00002e;
+    opacity: 1; /* Firefox */
+  }
+
+  .login-container section.form form .button {
+    background: #00002e;
+    color: white;
   }
 }

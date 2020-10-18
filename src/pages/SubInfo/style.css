@@ -138,6 +138,7 @@ body {
   margin-top: 25px;
   justify-content: space-between;
 }
+
 .sub-reqs .req {
   display: flex;
   flex-direction: column;
@@ -227,7 +228,6 @@ body {
   margin: 20px 0;
   font-size: 0.9em;
   width: 100%;
-  min-width: 400px;
   text-align: center;
   font: Muli;
   border-top-left-radius: 10px;
@@ -332,4 +332,123 @@ body {
 
 .action-module .del-module {
   margin-right: 14px;
+}
+
+@media (max-width: 768px) {
+  /* MODAL */
+  .card-modal {
+    width: 90%;
+    margin: 0 auto; 
+    height: auto;
+    background: white;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* SUB */
+  .sub-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1210px;
+    margin: 20px auto;
+  }
+
+  .sub-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sub-info .sub-name {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .sub-info .sub-name input {
+    background: white;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border-radius: 7px;
+    margin-right: 0px;
+  }
+
+  .sub-reqs {
+    display: flex;
+    margin-top: 25px;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .sub-reqs .search {
+    display: none;
+  }
+
+  .skel-hover {
+    width: 100% !important;
+  }
+
+  /* SUBS */
+  .sub-reqs .req {
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+  }
+
+  .content-table2 {
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.9em;
+    width: 100%;
+    text-align: center;
+    font: Muli;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: white;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+
+  .id-table {
+    max-width: auto;
+    min-width: auto;
+  }
+
+  .tipo-table {
+    max-width: auto;
+    min-width: auto;
+  }
+
+  .desc-table {
+    max-width: auto;
+    min-width: auto;
+    border-right: 1px solid #c5c5c5;
+  }
+}
+
+@media (max-width: 523px) {
+  .scroll-table {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 425px) {
+  .scroll-table {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 375px) {
+  .scroll-table {
+    width: 100%;
+    max-width: 280px;
+  }
 }

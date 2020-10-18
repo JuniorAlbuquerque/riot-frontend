@@ -409,29 +409,24 @@ export default function Dashboard() {
               {
                 subName ? <input type="text" defaultValue={subName} disabled /> :
                 <SkeletonTheme color="#ddd" highlightColor="#eee">
-                  <Skeleton variant="rect" width={370} height={48} style={{marginTop: '10px', marginRight: '40px'}} />
+                  <Skeleton className="skel-hover" variant="rect" width={370} height={48} style={{marginTop: '10px', marginRight: '40px'}} />
                 </SkeletonTheme>
               }
-              {/* <SkeletonTheme color="#ddd" highlightColor="#eee">
-                <Skeleton variant="rect" width={370} height={48} style={{marginTop: '10px', marginRight: '40px'}} />
-              </SkeletonTheme> */}
-              {/* <input type="text" defaultValue={subName} disabled /> */}
             </div>
             <div className="sub-desc">
               <span>Descrição</span>
               <div className="desc">
                 {subDescription ? subDescription : 
                   <SkeletonTheme color="#ddd" highlightColor="#eee">
-                    <Skeleton variant="rect" width={210} height={'auto'} />
+                    <Skeleton className="skel-hover" variant="rect" width={210} height={'auto'} />
                   </SkeletonTheme>
                 }
-                {/* {subDescription} */}
               </div>
             </div>
           </div>
 
           <div className="sub-reqs">
-            <div className="req">
+            <div className="req"> 
               <div className="req-header">
                 <span>Requisitos Funcionais</span>
                 <input
@@ -447,38 +442,31 @@ export default function Dashboard() {
                 </Tippy>
               </div>
 
-              <table className="content-table2" id="table">
-                <thead>
-                  <tr>
-                    <th className="id-table">ID</th>
-                    <th className="desc-table">Descrição</th>
-                    <th className="">Ação</th>
-                  </tr>
-                </thead>
+                <table className="content-table2" id="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Descrição</th>
+                      <th>Ação</th>
+                    </tr>
+                  </thead>
 
-                <tbody>
-                  {reqFunc.map((req) => (
-                    <tr key={req.id_reqfunctional}>
-                      <td className="border-right">{req.indicador}</td>
-                      <td className="desc-table">{req.descricao}</td>
-                      <Tippy content="Excluir Requisito">
-                        <td className="excluir-req" onClick={() => handleDelete(req.id_reqfunctional)}>X</td>
-                      </Tippy>
-                    </tr>
-                  ))}
-                  {/* {reqFunc.map((req) => (
-                    <tr key={req.id_reqfunctional}>
-                      <td className="border-right">{req.indicador}</td>
-                      <td className="desc-table">{req.descricao}</td>
-                      <Tippy content="Excluir Requisito">
-                        <td className="excluir-req" onClick={() => handleDelete(req.id_reqfunctional)}>X</td>
-                      </Tippy>
-                    </tr>
-                  ))} */}
-                </tbody>
-              </table>
+                  <tbody>
+                    {reqFunc.map((req) => (
+                      <tr key={req.id_reqfunctional}>
+                        <td className="border-right">{req.indicador}</td>
+                        <td className="desc-table">{req.descricao}</td>
+                        <Tippy content="Excluir Requisito">
+                          <td className="excluir-req" onClick={() => handleDelete(req.id_reqfunctional)}>X</td>
+                        </Tippy>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>      
+
             </div>
 
+            <div className="scroll-table" style={{overflowX: 'auto'}}>
             <div className="req req-non-func">
               <div className="req-header">
                 <span>Requisitos Não Funcionais</span>
@@ -494,7 +482,8 @@ export default function Dashboard() {
                   </div>
                 </Tippy>
               </div>
-
+              
+              <div className="scroll-table" style={{overflowX: 'auto'}}>
               <table className="content-table2" id="table2">
                 <thead>
                   <tr>
@@ -518,6 +507,8 @@ export default function Dashboard() {
                   ))}
                 </tbody>
               </table>
+              </div>
+            </div>
             </div>
           </div>
         </div>

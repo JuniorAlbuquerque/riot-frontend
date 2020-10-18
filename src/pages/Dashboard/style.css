@@ -133,3 +133,32 @@ a {
   color: white;
   font-size: 24px;
 }
+
+@media (max-width: 520px) {
+  .dashboard-container .header {
+    width: 100%;
+    grid-area: header;
+    padding: 10px 30px !important;
+    border-bottom: 1px solid #d5d6dc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dashboard-container .header img {
+    width: 50px !important;
+  }
+  .dashboard-container .header .info span {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .dashboard-container .header .info .logout {
+    margin-left: 10px !important;
+    outline: 0;
+    background: none;
+    border: 0;
+    font-size: 16px;
+    padding: 0;
+  }
+}

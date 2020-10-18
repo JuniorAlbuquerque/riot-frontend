@@ -394,7 +394,6 @@ export default function Dashboard() {
               
             </div>
             { 
-            // subs.length > 0 ?
             subs.map((sub) => (
               <Link
                 key={sub.id_sub}
@@ -405,45 +404,11 @@ export default function Dashboard() {
                     projectName
                   }
                 }}
-                // to={{
-                //   pathname: '/subsystem',
-                //   state: {
-                //     id: sub.id_sub,
-                //     projectName,
-                //     projectId: params.id_project,
-                //   },
-                // }}
               >
                 {sub.nome}
               </Link>
             )) 
-            // :
-            // <SkeletonTheme color="#ddd" highlightColor="#eee">
-            //   <Skeleton variant="rect" width={150} height={35} />
-            // </SkeletonTheme>
             }
-            {/* {subs.map((sub) => (
-              <Link
-                key={sub.id_sub}
-                className="sub-card"
-                to={{
-                  pathname: `/subsystem/${sub.id_sub}/${params.id_project}`,
-                  state: {
-                    projectName
-                  }
-                }}
-                // to={{
-                //   pathname: '/subsystem',
-                //   state: {
-                //     id: sub.id_sub,
-                //     projectName,
-                //     projectId: params.id_project,
-                //   },
-                // }}
-              >
-                {sub.nome}
-              </Link>
-            ))} */}
           </div>
 
           <div className="members">

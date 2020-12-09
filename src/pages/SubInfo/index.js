@@ -47,7 +47,7 @@ export default function Dashboard() {
 
   let data = useLocation();
 
-  const reqsnon = ['Confiabilidade', 'Desempenho', 'Disponibilidade', 'Eficiência', 'Entrega',
+  const reqsnon = ['Compatibilidade', 'Confiabilidade', 'Desempenho', 'Disponibilidade', 'Eficiência', 'Entrega',
     'Escalabilidade', 'Ético', 'Implementação', 'Interoperabilidade', 'Legal', 'Manutenabilidade',
     'Portabilidade', 'Padrão', 'Reusabilidade', 'Segurança', 'Testabilidade', 'Usabilidade'
   ]

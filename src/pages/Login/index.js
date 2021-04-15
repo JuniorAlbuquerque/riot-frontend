@@ -1,45 +1,45 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import Swal from 'sweetalert2'
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
-import './style.css'
+import "./style.css";
 
-import api from '../../services/api'
+import api from "../../services/api";
 
-import LogoImg from '../../assets/logo-rst.svg'
-import CheckImg from '../../assets/check-bg.png'
+import LogoImg from "../../assets/logo-rst.svg";
+import CheckImg from "../../assets/check-bg.png";
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [senha, setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [senha, setPassword] = useState("");
 
-  const history = useHistory()
+  const history = useHistory();
 
   async function handleLogin(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const response = await api.post('/user/login', {
+      const response = await api.post("/user/login", {
         email,
         senha,
-      })
+      });
 
       const id =
-        response.data.user[0].id_admin || response.data.user[0].id_member
+        response.data.user[0].id_admin || response.data.user[0].id_member;
 
-      localStorage.setItem('username', response.data.user[0].nome)
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem('access_level', response.data.access_level)
-      localStorage.setItem('userId', id)
+      localStorage.setItem("username", response.data.user[0].nome);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("access_level", response.data.access_level);
+      localStorage.setItem("userId", id);
 
-      history.push('/home')
+      history.push("/home");
     } catch (error) {
       Swal.fire({
-        title: 'Erro!',
-        text: 'Falha na autenticação de usuário',
-        icon: 'error',
-        confirmButtonText: 'Ok',
-      })
+        title: "Erro!",
+        text: "Falha na autenticação de usuário",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     }
   }
 
@@ -72,10 +72,11 @@ export default function Login() {
       <section className="info">
         <img className="logo-img" src={LogoImg} alt="Requirements of IoT" />
         <p>
-        Uma Ferramenta de Apoio a Especificação de Requisitos de Sistemas de Software IoT
+          Uma Ferramenta de Apoio a Especificação de Requisitos de Sistemas de
+          Software IoT - by jnr
         </p>
         <img className="colab-img" src={CheckImg} alt="Colaborate" />
       </section>
     </div>
-  )
+  );
 }
